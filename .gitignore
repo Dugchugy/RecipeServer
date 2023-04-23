@@ -1,0 +1,2 @@
+#ignores the recipes folder (it will be used for storing recipes used by the server)
+Recipes/*
