@@ -11,7 +11,7 @@ namespace HTTPServer
     HttpServer::HttpServer(char* address, char* port){
 
         //sets the handlerthread to null
-        HandlerThread = NULL
+        HandlerThread = NULL;
 
         //sets continue processing to false
         continueProcessing = false;
@@ -48,7 +48,7 @@ namespace HTTPServer
         //setup is complete
 
         //discards the found address object (its no longer needed)
-        freeaddrinfo(serverAddress)
+        freeaddrinfo(serverAddress);
 
     }
 
@@ -57,42 +57,90 @@ namespace HTTPServer
         //checks if the handler thread is not null (server is already started)
         if(HandlerThread != NULL){
             //returns false (server has already started)
-            return false
+            return false;
         }
 
         //starts the http server listener with a maximum queue of 5 devices
         if(listen(sockFD, 5) < 0){
-            throw "failed to open for listening"
+            throw "failed to open for listening";
         }
 
         //allows the handler loop to run
-        continueProcessing = true
+        continueProcessing = true;
 
         //starts a thread to handle the server interactions
-        HandlerThread = std::thread(mainHandleLoop)
+        HandlerThread = std::thread(mainHandleLoop);
 
-        return true
+        return true;
     }
 
     bool HttpServer::stop(){
 
         //prevents the handler loop from continuing
-        continueProcessing = false
+        continueProcessing = false;
 
         //closes the server socket
-        shutdown(sockFD, SHUT_RDWR)
+        shutdown(sockFD, SHUT_RDWR);
 
         //waits for the current interation of the handling loop to finish
-        HandlerThread.join()
+        HandlerThread.join();
 
         //sets the handler thread to null
-        HandlerThread = NULL
+        HandlerThread = NULL;
 
-        return true
+        return true;
+    }
+
+    bool HttpServer::mainHandleLoop(){
+        try{
+            //loops until the bool signaling to process requests is set to false
+            while(continueProcessing){
+                //creates an int to store the socket for the incoming request
+                int newSocket;
+
+                //creates a socketaddress object to store the address of the incoming socket (not used as http server doesn't filter addresses)
+                struct sockaddr_storage incomingAddr;
+                socklen_t incomingAddrSize = sizeof(incomingAddr);
+
+                //attempts to establish a connection with a incoming connection request
+                if((newSocket = accept(sockFD, (struct sockaddr*) &incomingAddr, &incomingAddrSize)) < 0){
+                    throw "failed to accept connection"
+                }
+
+                //creates a char pointer to use to store the raw request data
+                char* rawRequestData = NULL;
+
+                //reads the incoming request from the user
+                read(newSocket, rawRequestData, 4096);
+
+                //creates a new http request
+                HttpRequest req;
+
+                //reads the request from the raw data
+                req.parseSocketInput(rawRequestData);
+
+                char* response = NULL;
+
+                //generates the http response using the given algorithm
+                handleResponse(req, response);
+
+                //sends the response to the requester
+                send(newSocket, response, strlen(response), 0)
+                
+                //closes the socket
+                close(newSocket)
+            }
+        }catch(std::string s){
+            //checks if this is the expected error called when the server shuts down
+            if(!(s == "failed to accept connection" && (!continueProcessing))){
+                //if not re-throws the error
+                throw "failed to accept connection"
+            }
+        }
     }
 
     HttpServer::~HttpServer(){
         //calls the stop server function
-        stop()
+        stop();
     }
 } // namespace HttpServer

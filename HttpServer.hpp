@@ -20,7 +20,7 @@ namespace HTTPServer{
         //closes the server
         bool stop();
         //a function that handles the http response (should be overwritten when creating a child class for your server application)
-        bool handleResponse(HttpRequest req, char** response);
+        bool handleResponse(HttpRequest req, (char*)& response);
 
         //a bool to signal whether or not the server should run
         bool continueProcessing;
@@ -43,6 +43,17 @@ namespace HTTPServer{
     class HttpRequest{
     public:
 
+        //creates a new http request with no data in it
+        HttpRequest();
+
+        //creates a copy of the passed HttpRequest
+        HttpRequest(const HttpRequest& ref)
+
+        //destroys the http request object
+        ~HttpRequest();
+
+        //reads the raw data from a socket and uses it to generate http request data
+        bool parseSocketInput(char* data)
 
         char* MainHeader;
         char* SubHeaders;
