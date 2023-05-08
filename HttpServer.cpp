@@ -1,4 +1,5 @@
 #include "HttpServer.hpp"
+#include <thread>
 
 namespace HTTPServer
 {
@@ -8,6 +9,12 @@ namespace HTTPServer
     }
 
     HttpServer::HttpServer(char* address, char* port){
+
+        //sets the handlerthread to null
+        HandlerThread = NULL
+
+        //sets continue processing to false
+        continueProcessing = false;
 
         //defines a structure to store the parameters used to find the address
         struct addrinfo hints;
@@ -43,5 +50,49 @@ namespace HTTPServer
         //discards the found address object (its no longer needed)
         freeaddrinfo(serverAddress)
 
+    }
+
+    bool HttpServer::start(){
+
+        //checks if the handler thread is not null (server is already started)
+        if(HandlerThread != NULL){
+            //returns false (server has already started)
+            return false
+        }
+
+        //starts the http server listener with a maximum queue of 5 devices
+        if(listen(sockFD, 5) < 0){
+            throw "failed to open for listening"
+        }
+
+        //allows the handler loop to run
+        continueProcessing = true
+
+        //starts a thread to handle the server interactions
+        HandlerThread = std::thread(mainHandleLoop)
+
+        return true
+    }
+
+    bool HttpServer::stop(){
+
+        //prevents the handler loop from continuing
+        continueProcessing = false
+
+        //closes the server socket
+        shutdown(sockFD, SHUT_RDWR)
+
+        //waits for the current interation of the handling loop to finish
+        HandlerThread.join()
+
+        //sets the handler thread to null
+        HandlerThread = NULL
+
+        return true
+    }
+
+    HttpServer::~HttpServer(){
+        //calls the stop server function
+        stop()
     }
 } // namespace HttpServer
