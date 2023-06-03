@@ -1,6 +1,8 @@
 #include "HttpServer.hpp"
 #include <thread>
 #include <string>
+#include <cstring>
+#include <sys/socket.h>
 
 namespace HTTPServer
 {
@@ -105,7 +107,7 @@ namespace HTTPServer
 
                 //attempts to establish a connection with a incoming connection request
                 if((newSocket = accept(sockFD, (struct sockaddr*) &incomingAddr, &incomingAddrSize)) < 0){
-                    throw "failed to accept connection"
+                    throw "failed to accept connection";
                 }
 
                 //creates a char pointer to use to store the raw request data
