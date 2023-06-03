@@ -1,6 +1,7 @@
 #include "HttpServer.hpp"
 #include <iostream>
 #include <unistd.h>
+#include <sys/socket.h>
 
 using namespace HTTPServer;
 

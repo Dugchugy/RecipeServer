@@ -140,6 +140,8 @@ namespace HTTPServer
                 throw "failed to accept connection";
             }
         }
+
+        return true
     }
 
     bool httpServer::handleResponse(HttpRequest req, (char*)& response){
