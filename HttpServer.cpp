@@ -14,8 +14,8 @@ namespace HTTPServer
 
     HttpServer::HttpServer(char* address, char* port){
 
-        //sets the handlerthread to null
-        HandlerThread = NULL;
+        //marks that the server is not running
+        running = false;
 
         //sets continue processing to false
         continueProcessing = false;
@@ -25,7 +25,7 @@ namespace HTTPServer
         struct addrinfo *serverAddress;
 
         //wipes the structure to all 0 and them loads it with the desired parameters
-        memset(&hints, 0, sizeof(hints))
+        memset(&hints, 0, sizeof(hints));
 
         hints.ai_family = AF_UNSPEC;
         hints.ai_socktype = SOCK_STREAM;
@@ -58,8 +58,8 @@ namespace HTTPServer
 
     bool HttpServer::start(){
 
-        //checks if the handler thread is not null (server is already started)
-        if(HandlerThread != NULL){
+        //checks if the server is running
+        if(running){
             //returns false (server has already started)
             return false;
         }
@@ -89,13 +89,12 @@ namespace HTTPServer
         //waits for the current interation of the handling loop to finish
         HandlerThread.join();
 
-        //sets the handler thread to null
-        HandlerThread = NULL;
+        running = false;
 
         return true;
     }
 
-    bool HttpServer::mainHandleLoop(){
+    void HttpServer::mainHandleLoop(){
         try{
             //loops until the bool signaling to process requests is set to false
             while(continueProcessing){
@@ -125,11 +124,15 @@ namespace HTTPServer
 
                 char* response = NULL;
 
-                //generates the http response using the given algorithm
+                //generates the http response using the given algorithm (allocates memory for response)
                 handleResponse(req, response);
 
                 //sends the response to the requester
                 send(newSocket, response, strlen(response), 0);
+
+                delete response;
+
+                response = NULL;
                 
                 //closes the socket
                 close(newSocket);
@@ -141,8 +144,6 @@ namespace HTTPServer
                 throw "failed to accept connection";
             }
         }
-
-        return true;
     }
 
     bool HttpServer::handleResponse(HttpRequest req, char* &response){
@@ -150,8 +151,11 @@ namespace HTTPServer
         //generates a plaintext response that writes "hello world"
         std::string rawResp = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
 
-        //converts that responmse to a char array and returns it
-        response = rawResp.c_str();
+        //allocates memory for the response
+        response = new char[rawResp.size() + 1];
+
+        //copies the raw char values of the raw response to the response str
+        memcpy(response, rawResp.c_str(), rawResp.size() + 1);
 
         return true;
     }

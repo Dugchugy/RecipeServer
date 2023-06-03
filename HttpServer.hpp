@@ -48,11 +48,13 @@ namespace HTTPServer{
         bool continueProcessing;
 
         // a looping function that handles all the requests to the server
-        bool mainHandleLoop();
+        void mainHandleLoop();
         
     private:
         //stores the socket accosiated with the http server
         int sockFD;
+
+        bool running;
 
         //a thread that runs the main handler loop for the server
         std::thread HandlerThread;
