@@ -10,7 +10,7 @@
 namespace HTTPServer
 {
     //creates a default http server (a server on 127.0.0.1:12345)
-    HttpServer::HttpServer() : HttpServer::HttpServer("127.0.0.1", 12345) {
+    HttpServer::HttpServer() : HttpServer::HttpServer("127.0.0.1", "12345") {
 
     }
 
