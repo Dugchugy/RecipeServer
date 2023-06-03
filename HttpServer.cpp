@@ -1,5 +1,6 @@
 #include "HttpServer.hpp"
 #include <thread>
+#include <string>
 
 namespace HTTPServer
 {
@@ -125,18 +126,29 @@ namespace HTTPServer
                 handleResponse(req, response);
 
                 //sends the response to the requester
-                send(newSocket, response, strlen(response), 0)
+                send(newSocket, response, strlen(response), 0);
                 
                 //closes the socket
-                close(newSocket)
+                close(newSocket);
             }
         }catch(std::string s){
             //checks if this is the expected error called when the server shuts down
             if(!(s == "failed to accept connection" && (!continueProcessing))){
                 //if not re-throws the error
-                throw "failed to accept connection"
+                throw "failed to accept connection";
             }
         }
+    }
+
+    bool httpServer::handleResponse(HttpRequest req, (char*)& response){
+
+        //generates a plaintext response that writes "hello world"
+        std::string rawResp = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
+
+        //converts that responmse to a char array and returns it
+        response = rawResp.c_str();
+
+        return true;
     }
 
     HttpServer::~HttpServer(){
