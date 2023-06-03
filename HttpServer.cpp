@@ -4,6 +4,8 @@
 #include <cstring>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <netdb.h>
+#include <sys\types.h>
 
 namespace HTTPServer
 {
@@ -73,7 +75,7 @@ namespace HTTPServer
         continueProcessing = true;
 
         //starts a thread to handle the server interactions
-        HandlerThread = std::thread(mainHandleLoop);
+        HandlerThread = std::thread(&HttpServer::mainHandleLoop, this);
 
         return true;
     }
