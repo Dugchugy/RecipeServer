@@ -3,6 +3,7 @@
 #include <string>
 #include <cstring>
 #include <sys/socket.h>
+#include <unistd.h>
 
 namespace HTTPServer
 {
@@ -141,10 +142,10 @@ namespace HTTPServer
             }
         }
 
-        return true
+        return true;
     }
 
-    bool httpServer::handleResponse(HttpRequest req, (char*)& response){
+    bool HttpServer::handleResponse(HttpRequest req, char* &response){
 
         //generates a plaintext response that writes "hello world"
         std::string rawResp = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
