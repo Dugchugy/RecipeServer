@@ -8,14 +8,14 @@ int main(){
 
     std::cout << "starting http sever";
 
-    HttpServer server("127.0.0.1", 25565);
+    HttpServer server("127.0.0.1", "25565");
 
-    server.start()
+    server.start();
 
-    sleep(120)
+    sleep(120);
 
     std::cout << "stoppinmg server";
 
-    server.stop()
+    server.stop();
 
 }
