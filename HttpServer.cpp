@@ -125,6 +125,8 @@ namespace HTTPServer
                 //reads the incoming request from the user
                 int dLen = read(newSocket, rawRequestData, 4096);
 
+                std::cout << "read " << dLen << "bytes";
+
                 //creates a new http request
                 HttpRequest req;
 
