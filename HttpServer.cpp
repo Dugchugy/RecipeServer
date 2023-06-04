@@ -15,7 +15,7 @@ namespace HTTPServer
 
     }
 
-    HttpServer::HttpServer(char* address, char* port){
+    HttpServer::HttpServer(std::string address, std::string port){
 
         //marks that the server is not running
         running = false;
@@ -35,7 +35,7 @@ namespace HTTPServer
         hints.ai_flags = AI_PASSIVE;
 
         //attempts to generate a valid address from the provided IP and port
-        if(getaddrinfo(address, port, &hints, &serverAddress) != 0){
+        if(getaddrinfo(address.c_str(), port.c_str(), &hints, &serverAddress) != 0){
             throw "failed to find address";
         }
 

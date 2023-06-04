@@ -40,7 +40,7 @@ namespace HTTPServer{
         //default constructor (creates a new server set up on 127.0.0.1:8080 with default response to all requests)
         HttpServer();
         //creates a new HTTP server object at the specifed address and port
-        HttpServer(char* address, char* port);
+        HttpServer(std::string address, std::string port);
         //a destructor that shuts down the server if the program ends before stop is called
         ~HttpServer();
         //starts the http server accepting http requests
