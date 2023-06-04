@@ -339,7 +339,7 @@ namespace HTTPServer
 
         //checks if the main header was not found (if not, something went wrong, throw error)
         if(!FMHead){
-            std::cout << "unnabled to find main header\n"
+            std::cout << "unnabled to find main header\n";
 
             throw "no main header found";
         }else{
@@ -347,7 +347,7 @@ namespace HTTPServer
             //if not, the request has no content so entirty of request should be read as subheaders
             if(!FSHead){
 
-                std::cout << "storing subheaders (no Content)\n"
+                std::cout << "storing subheaders (no Content)\n";
 
                 //stores the length of the subheaders
                 memLengths[2] = (dLen - lastRead) + 1;
@@ -360,7 +360,7 @@ namespace HTTPServer
 
             }else{//both main and sub headers were found, so the rest or the request is content
 
-                std::cout << "storing Content"
+                std::cout << "storing Content";
 
                 //stores the length of the content
                 memLengths[3] = (dLen - lastRead) + 1;
@@ -374,7 +374,7 @@ namespace HTTPServer
             }
         }
 
-        std::cout << "storing raw request\n"
+        std::cout << "storing raw request\n";
 
         //store the length of the raw request
         memLengths[0] = dLen;
@@ -382,7 +382,7 @@ namespace HTTPServer
         //copies the entire request into raw
         memcpy(raw, data, dLen);
 
-        std::cout << "finished processing\n"
+        std::cout << "finished processing\n";
 
         return true;
 
