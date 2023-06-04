@@ -20,13 +20,19 @@ namespace HTTPServer{
         ~HttpRequest();
 
         //reads the raw data from a socket and uses it to generate http request data
-        bool parseSocketInput(char* data);
+        bool parseSocketInput(const char* &data, int dLen);
+
+        friend const std::ostream operator <<(const std::ostream& os, const HttpRequest& req);
 
         char* MainHeader;
         char* SubHeaders;
         char* Content;
 
         char* raw;
+
+    private:
+
+        int* memLengths;
     };
 
     class HttpServer{

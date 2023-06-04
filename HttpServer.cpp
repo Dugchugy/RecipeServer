@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <iostream>
 //#include <sys\types.h>
 
 namespace HTTPServer
@@ -159,11 +160,209 @@ namespace HTTPServer
         //copies the raw char values of the raw response to the response str
         memcpy(response, rawResp.c_str(), rawResp.size() + 1);
 
+        //prints the request
+        std::cout << req;
+
         return true;
     }
 
     HttpServer::~HttpServer(){
         //calls the stop server function
         stop();
+    }
+
+    HttpRequest::HttpRequest(){
+        //sets memLengths to 4 -1s
+        memLengths = new int[4] {-1, -1, -1, -1};
+
+        //initializes all the char arrays to null
+        raw = NULL;
+        MainHeader = NULL;
+        SubHeaders = NULL;
+        Content = NULL;
+    }
+
+    HttpRequest::~HttpRequest(){
+        //checks if raw is defined and if not, deletes it
+        if(raw != NULL){
+            delete raw;
+            raw = NULL;
+        }
+
+        //checks if mainHeader is defined and if not, deletes it
+        if(MainHeader != NULL){
+            delete MainHeader;
+            MainHeader = NULL;
+        }
+
+        if(SubHeaders != NULL){
+            delete SubHeaders;
+            SubHeaders = NULL;
+        }
+
+        if(Content != NULL){
+            delete Content;
+            Content = NULL;
+        }
+    }
+
+    HttpRequest::HttpRequest(const HttpRequest& ref){
+        //allocates memory for the new memLengths
+        memLengths = new int[4];
+
+        //copies the memlengths
+        memcpy(memLengths, ref.memLengths, sizeof(int) * 4);
+
+        if(memLengths[0] < 1){
+
+            raw = NULL;
+
+        }else{
+
+            raw = new char[memLengths[0]];
+
+            memcpy(raw, ref.raw, sizeof(char) * memLengths[0]);
+
+        }
+
+        if(memLengths[1] < 1){
+
+            MainHeader = NULL;
+
+        }else{
+
+            MainHeader = new char[memLengths[1]];
+
+            memcpy(MainHeader, ref.MainHeader, sizeof(char) * memLengths[0]);
+
+        }
+
+        if(memLengths[2] < 1){
+
+            SubHeaders = NULL;
+
+        }else{
+
+            SubHeaders = new char[memLengths[2]];
+
+            memcpy(SubHeaders, ref.SubHeaders, sizeof(char) * memLengths[0]);
+
+        }
+
+        if(memLengths[3] < 1){
+
+            Content = NULL;
+
+        }else{
+
+            Content = new char[memLengths[3]];
+
+            memcpy(Content, ref.Content, sizeof(char) * memLengths[0]);
+
+        }
+    }
+
+    bool HttpRequest::parseSocketInput(const char* &data, int dLen){
+
+        //resets the request object to an empty request object
+        this* = HttpRequest();
+
+        //defiens an int used to store where to read from
+        int lastRead = 0;
+
+        //creates bool to store whether or not the main and sub headers had been read
+        bool FMHead = false;
+        bool FSHead = false;
+
+        //loops through each char passed
+        for(int i = 1; i < dLen; i++){
+
+            //checks if this is the end of the line and first header hasn't been read
+            //this reads the first header
+            if((!FMHead) && data[i] == '\n' && data[i - 1] == '\r'){
+
+                //marks that the main headers has been found
+                FMHead = true;
+
+                //stores the length of the main header
+                memLengths[1] = (dLen - lastRead) + 1;
+
+                //allocates space to copy the main header
+                MainHeader = new char[i + 1];
+
+                //copies the data from the main header
+                memcpy(MainHeader, data, sizeof(char) * (i + 1));
+
+                //stores that the last read point was here
+                lastRead = i;
+            }
+
+            //checks if this is the end of the headers and the start of the content
+            //uses this to copy the sub headers
+            if(FMHead && (!FSHead) && data[i] == '\n' && data[i - 1] == '\r' && data[i - 2] == '\n' && data[i - 3] == '\r'){
+
+                //marks that the sub headers have been found
+                FSHead = true;
+
+                //stores the length of the subheaders
+                memLengths[2] = (dLen - lastRead) + 1;
+
+                //allocates space to copy the sub headers
+                SubHeaders = new char[(i - lastRead) + 1];
+
+                //copies the data from the sub headers (start at the last read point and reads up to current point)
+                memcpy(SubHeaders, &data[lastRead], ((i - lastRead) + 1));
+
+                lastRead = i;
+            }
+        }
+
+        //checks if the main header was not found (if not, something went wrong, throw error)
+        if(!FMHead){
+            throw "no main header found";
+        }else{
+            //check if the subheaders were not found
+            //if not, the request has no content so entirty of request should be read as subheaders
+            if(!FSHead){
+
+                //stores the length of the subheaders
+                memLengths[2] = (dLen - lastRead) + 1;
+
+                //allocates space to copy the sub headers
+                SubHeaders = new char[(dLen - lastRead) + 1];
+
+                //copies the data from the sub headers (start at the last read point and reads up to current point)
+                memcpy(SubHeaders, &data[lastRead], ((dLen - lastRead) + 1));
+
+            }else{//both main and sub headers were found, so the rest or the request is content
+
+                //stores the length of the content
+                memLengths[3] = (dLen - lastRead) + 1;
+
+                //allocates space to copy the sub headers
+                Content = new char[(dLen - lastRead) + 1];
+
+                //copies the data from the sub headers (start at the last read point and reads up to current point)
+                memcpy(Content, &data[lastRead], ((dLen - lastRead) + 1));
+
+            }
+        }
+
+        //store the length of the raw request
+        memLengths[0] = dLen;
+
+        //copies the entire request into raw
+        memcpy(raw, data, dLen);
+
+
+
+    }
+
+    const std::ostream operator <<(const std::ostream& os, const HttpRequest& req){
+
+        os << "MainHeader:\n" << req.MainHeader;
+        os << "SubHeaders:\n" << req.SubHeaders;
+        os << "Content:\n" << req.Content;
+        os << "\n\nRaw Request:\n" << req.raw;
     }
 } // namespace HttpServer
