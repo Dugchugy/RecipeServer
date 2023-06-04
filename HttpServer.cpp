@@ -127,9 +127,9 @@ namespace HTTPServer
 
                 if(dLen == -1){
 
-                    std::cout << "failed to read data:\n" << strerror(errno) << "\n"
+                    std::cout << "failed to read data:\n" << strerror(errno) << "\n";
 
-                    throw "failed to read"
+                    throw "failed to read";
 
                 }
 
