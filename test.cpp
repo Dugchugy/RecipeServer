@@ -6,15 +6,15 @@
 using namespace HTTPServer;
 
 int main(){
-    std::cout << "starting http sever";
+    std::cout << "starting http sever\n";
 
-    //HttpServer server("127.0.0.1", "25565");
+    HttpServer server("127.0.0.1".c_str(), "25565".c_str());
 
-    //server.start();
+    server.start();
 
-    //sleep(120);
+    sleep(120);
 
-    std::cout << "stoppinmg server";
+    std::cout << "stoppinmg server\n";
 
-    //server.stop();
+    server.stop();
 }
