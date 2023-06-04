@@ -111,14 +111,14 @@ namespace HTTPServer
                 std::cout << "awaiting connection\n";
 
                 //attempts to establish a connection with a incoming connection request
-                if((newSocket = accept(sockFD, (struct sockaddr*) &incomingAddr, &incomingAddrSize)) < 0){
+                if((newSocket = accept(sockFD, (struct sockaddr *) &incomingAddr, &incomingAddrSize)) < 0){
                     std::cout << "accept failed\n";
                     
                     throw "failed to accept connection";
                 }
 
                 //creates a char pointer to use to store the raw request data
-                char* rawRequestData = NULL;
+                char* rawRequestData = new char[4096];
 
                 std::cout << "reading request\n";
 
@@ -155,7 +155,9 @@ namespace HTTPServer
                 //sends the response to the requester
                 send(newSocket, response, strlen(response), 0);
 
+                //deletes the unneeded data
                 delete response;
+                delete rawRequestData;
 
                 response = NULL;
                 
