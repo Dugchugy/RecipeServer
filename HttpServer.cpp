@@ -117,13 +117,13 @@ namespace HTTPServer
                 char* rawRequestData = NULL;
 
                 //reads the incoming request from the user
-                read(newSocket, rawRequestData, 4096);
+                int dLen = read(newSocket, rawRequestData, 4096);
 
                 //creates a new http request
                 HttpRequest req;
 
                 //reads the request from the raw data
-                req.parseSocketInput(rawRequestData);
+                req.parseSocketInput(rawRequestData, dLen);
 
                 char* response = NULL;
 
@@ -265,7 +265,7 @@ namespace HTTPServer
     bool HttpRequest::parseSocketInput(const char* &data, int dLen){
 
         //resets the request object to an empty request object
-        this* = HttpRequest();
+        *this = HttpRequest();
 
         //defiens an int used to store where to read from
         int lastRead = 0;
@@ -354,7 +354,7 @@ namespace HTTPServer
         //copies the entire request into raw
         memcpy(raw, data, dLen);
 
-
+        return true;
 
     }
 
@@ -364,5 +364,7 @@ namespace HTTPServer
         os << "SubHeaders:\n" << req.SubHeaders;
         os << "Content:\n" << req.Content;
         os << "\n\nRaw Request:\n" << req.raw;
+
+        return os;
     }
 } // namespace HttpServer
