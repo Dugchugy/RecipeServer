@@ -180,13 +180,21 @@ namespace HTTPServer
         //generates a plaintext response that writes "hello world"
         std::string rawResp = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
 
+        std::cout << "allocating memory\n";
+
         //allocates memory for the response
         char* resp = new char[rawResp.size() + 1];
+
+        std::cout << "copying response\n";
 
         //copies the raw char values of the raw response to the response str
         memcpy(resp, rawResp.c_str(), rawResp.size() + 1);
 
+        std::cout << "overwriting pointer\n";
+
         response = resp;
+
+        std::cout << "printing request\n";
 
         //prints the request
         std::cout << req;
