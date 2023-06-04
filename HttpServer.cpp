@@ -87,7 +87,7 @@ namespace HTTPServer
         continueProcessing = false;
 
         //closes the server socket
-        shutdown(sockFD, SHUT_RDWR);
+        close(sockFD);
 
         //waits for the current interation of the handling loop to finish
         HandlerThread.join();
@@ -110,6 +110,8 @@ namespace HTTPServer
 
                 //attempts to establish a connection with a incoming connection request
                 if((newSocket = accept(sockFD, (struct sockaddr*) &incomingAddr, &incomingAddrSize)) < 0){
+                    std::cout << "accept failed\n"
+                    
                     throw "failed to accept connection";
                 }
 
