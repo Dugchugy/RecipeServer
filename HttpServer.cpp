@@ -372,7 +372,7 @@ namespace HTTPServer
 
             }else{//both main and sub headers were found, so the rest or the request is content
 
-                std::cout << "storing Content";
+                std::cout << "storing Content\n";
 
                 //stores the length of the content
                 memLengths[3] = (dLen - lastRead) + 1;
@@ -390,6 +390,8 @@ namespace HTTPServer
 
         //store the length of the raw request
         memLengths[0] = dLen;
+
+        raw = new char[dLen];
 
         //copies the entire request into raw
         memcpy(raw, data, dLen);
