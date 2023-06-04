@@ -262,7 +262,7 @@ namespace HTTPServer
         }
     }
 
-    bool HttpRequest::parseSocketInput(const char* &data, int dLen){
+    bool HttpRequest::parseSocketInput(const char* data, int dLen){
 
         //resets the request object to an empty request object
         *this = HttpRequest();
@@ -358,12 +358,12 @@ namespace HTTPServer
 
     }
 
-    std::ostream operator <<(std::ostream& os, const HttpRequest& req){
+    std::ostream& operator <<(std::ostream& os, const HttpRequest& req){
 
         os << "MainHeader:\n" << req.MainHeader;
         os << "SubHeaders:\n" << req.SubHeaders;
         os << "Content:\n" << req.Content;
-        os << "\n\nRaw Request:\n" << req.raw;
+        os << "\n\nRaw Request:\n" << req.raw << "\n";
 
         return os;
     }
