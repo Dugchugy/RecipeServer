@@ -288,12 +288,16 @@ namespace HTTPServer
         bool FMHead = false;
         bool FSHead = false;
 
+        std::cout << "reading chars\n";
+
         //loops through each char passed
         for(int i = 1; i < dLen; i++){
 
             //checks if this is the end of the line and first header hasn't been read
             //this reads the first header
             if((!FMHead) && data[i] == '\n' && data[i - 1] == '\r'){
+
+                std::cout << "storing main header\n";
 
                 //marks that the main headers has been found
                 FMHead = true;
@@ -315,6 +319,8 @@ namespace HTTPServer
             //uses this to copy the sub headers
             if(FMHead && (!FSHead) && data[i] == '\n' && data[i - 1] == '\r' && data[i - 2] == '\n' && data[i - 3] == '\r'){
 
+                std::cout << "storing subheaders\n";
+
                 //marks that the sub headers have been found
                 FSHead = true;
 
@@ -333,11 +339,15 @@ namespace HTTPServer
 
         //checks if the main header was not found (if not, something went wrong, throw error)
         if(!FMHead){
+            std::cout << "unnabled to find main header\n"
+
             throw "no main header found";
         }else{
             //check if the subheaders were not found
             //if not, the request has no content so entirty of request should be read as subheaders
             if(!FSHead){
+
+                std::cout << "storing subheaders (no Content)\n"
 
                 //stores the length of the subheaders
                 memLengths[2] = (dLen - lastRead) + 1;
@@ -349,6 +359,8 @@ namespace HTTPServer
                 memcpy(SubHeaders, &data[lastRead], ((dLen - lastRead) + 1));
 
             }else{//both main and sub headers were found, so the rest or the request is content
+
+                std::cout << "storing Content"
 
                 //stores the length of the content
                 memLengths[3] = (dLen - lastRead) + 1;
@@ -362,11 +374,15 @@ namespace HTTPServer
             }
         }
 
+        std::cout << "storing raw request\n"
+
         //store the length of the raw request
         memLengths[0] = dLen;
 
         //copies the entire request into raw
         memcpy(raw, data, dLen);
+
+        std::cout << "finished processing\n"
 
         return true;
 
