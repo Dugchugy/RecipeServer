@@ -108,6 +108,8 @@ namespace HTTPServer
                 struct sockaddr_storage incomingAddr;
                 socklen_t incomingAddrSize = sizeof(incomingAddr);
 
+                std::cout << "awaiting connection\n";
+
                 //attempts to establish a connection with a incoming connection request
                 if((newSocket = accept(sockFD, (struct sockaddr*) &incomingAddr, &incomingAddrSize)) < 0){
                     std::cout << "accept failed\n";
@@ -118,19 +120,27 @@ namespace HTTPServer
                 //creates a char pointer to use to store the raw request data
                 char* rawRequestData = NULL;
 
+                std::cout << "reading request\n";
+
                 //reads the incoming request from the user
                 int dLen = read(newSocket, rawRequestData, 4096);
 
                 //creates a new http request
                 HttpRequest req;
 
+                std::cout << "processing request\n";
+
                 //reads the request from the raw data
                 req.parseSocketInput(rawRequestData, dLen);
 
                 char* response = NULL;
 
+                std::cout << "generating response\n";
+
                 //generates the http response using the given algorithm (allocates memory for response)
                 handleResponse(req, response);
+
+                std::cout << "sending response\n";
 
                 //sends the response to the requester
                 send(newSocket, response, strlen(response), 0);
@@ -139,12 +149,14 @@ namespace HTTPServer
 
                 response = NULL;
                 
+                std::cout << "closing connection\n";
+
                 //closes the socket
                 close(newSocket);
             }
         }catch(std::string s){
             //checks if this is the expected error called when the server shuts down
-            if(!(s == "failed to accept connection" && (!continueProcessing))){
+            if(continueProcessing){
                 //if not re-throws the error
                 throw "failed to accept connection";
             }
