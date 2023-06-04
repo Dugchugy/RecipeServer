@@ -125,6 +125,14 @@ namespace HTTPServer
                 //reads the incoming request from the user
                 int dLen = recv(newSocket, rawRequestData, 4096, 0);
 
+                if(dLen == -1){
+
+                    std::cout << "failed to read data:\n" << strerror(errno) << "\n"
+
+                    throw "failed to read"
+
+                }
+
                 std::cout << "read " << dLen << " bytes\n";
 
                 //creates a new http request
