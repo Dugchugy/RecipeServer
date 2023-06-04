@@ -181,10 +181,12 @@ namespace HTTPServer
         std::string rawResp = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
 
         //allocates memory for the response
-        response = new char[rawResp.size() + 1];
+        char* resp = new char[rawResp.size() + 1];
 
         //copies the raw char values of the raw response to the response str
-        memcpy(response, rawResp.c_str(), rawResp.size() + 1);
+        memcpy(resp, rawResp.c_str(), rawResp.size() + 1);
+
+        response = resp;
 
         //prints the request
         std::cout << req;
