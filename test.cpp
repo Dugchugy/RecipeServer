@@ -8,7 +8,7 @@ using namespace HTTPServer;
 int main(){
     std::cout << "starting http sever\n";
 
-    HttpServer server("127.0.0.1".c_str(), "25565".c_str());
+    HttpServer server("127.0.0.1", "25565");
 
     server.start();
 
