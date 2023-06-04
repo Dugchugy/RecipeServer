@@ -358,7 +358,7 @@ namespace HTTPServer
 
     }
 
-    const std::ostream operator <<(const std::ostream& os, const HttpRequest& req){
+    std::ostream operator <<(std::ostream& os, const HttpRequest& req){
 
         os << "MainHeader:\n" << req.MainHeader;
         os << "SubHeaders:\n" << req.SubHeaders;

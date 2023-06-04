@@ -22,7 +22,7 @@ namespace HTTPServer{
         //reads the raw data from a socket and uses it to generate http request data
         bool parseSocketInput(const char* &data, int dLen);
 
-        friend const std::ostream operator <<(const std::ostream& os, const HttpRequest& req);
+        friend std::ostream operator <<(std::ostream& os, const HttpRequest& req);
 
         char* MainHeader;
         char* SubHeaders;
