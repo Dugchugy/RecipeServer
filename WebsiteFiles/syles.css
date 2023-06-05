@@ -1,0 +1,28 @@
+body{
+    background-color: lightgray;
+}
+
+div.SiteSection{
+    margin: 5%;
+    padding: 1%;
+
+    background-color: white;
+
+    border: 1x solid black;
+
+    box-shadow: 5px 5px 5px black;
+}
+
+div.SiteTitleBar{
+    background-color: #0000FF;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+    text-align: center;
+}
+
+div.RecipeHolder{
+    margin:0cm;
+    padding:0cm;
+}
