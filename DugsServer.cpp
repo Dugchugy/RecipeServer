@@ -112,7 +112,7 @@ namespace RecipeServer{
         if(lastDotIndex == -1){
 
             //checks if the last charcter in the path is not a /
-            if(path[path.size() -1] != "/"){
+            if(path[path.size() -1] != '/'){
                 //adds a / to the end of the path
                 path = path + "/";
             }
