@@ -30,8 +30,11 @@ namespace HTTPServer{
 
         char* raw;
 
-    private:
-
+        //stores the lengths of the parts of the http request
+        //[0] is the raw request
+        //[1] is the main header
+        //[2] is the subheaders
+        //[3] is the request content
         int* memLengths;
     };
 
@@ -48,7 +51,7 @@ namespace HTTPServer{
         //closes the server
         bool stop();
         //a function that handles the http response (should be overwritten when creating a child class for your server application)
-        bool handleResponse(const HttpRequest &req, char* &response);
+        bool handleResponse(const HttpRequest &req, std::string &response);
 
         //a bool to signal whether or not the server should run
         bool continueProcessing;

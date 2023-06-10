@@ -143,20 +143,26 @@ namespace HTTPServer
                 //reads the request from the raw data
                 req.parseSocketInput(rawRequestData, dLen);
 
-                char* response = NULL;
+                std::string response = "";
 
                 std::cout << "generating response\n";
 
                 //generates the http response using the given algorithm (allocates memory for response)
                 handleResponse(req, response);
 
+                //converts the response into a sendable format
+                char* RespToSend = new char[response.size() + 1];
+
+                //copies the raw char values of the raw response to the response str
+                memcpy(RespToSend, response.c_str(), response.size() + 1);
+
                 std::cout << "sending response\n";
 
                 //sends the response to the requester
-                send(newSocket, response, strlen(response), 0);
+                send(newSocket, RespToSend, strlen(RespToSend), 0);
 
                 //deletes the unneeded data
-                delete response;
+                delete RespToSend;
                 delete rawRequestData;
 
                 response = NULL;
@@ -175,24 +181,10 @@ namespace HTTPServer
         }
     }
 
-    bool HttpServer::handleResponse(const HttpRequest &req, char* &response){
+    bool HttpServer::handleResponse(const HttpRequest &req, std::string &response){
 
         //generates a plaintext response that writes "hello world"
-        std::string rawResp = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
-
-        std::cout << "allocating memory\n";
-
-        //allocates memory for the response
-        char* resp = new char[rawResp.size() + 1];
-
-        std::cout << "copying response\n";
-
-        //copies the raw char values of the raw response to the response str
-        memcpy(resp, rawResp.c_str(), rawResp.size() + 1);
-
-        std::cout << "overwriting pointer\n";
-
-        response = resp;
+        response = "HTTP/1.1 200 OK\r\nContent-Type: test/plain\r\nContent-Length: 11\r\n\r\nhello world";
 
         std::cout << "printing request\n";
 
