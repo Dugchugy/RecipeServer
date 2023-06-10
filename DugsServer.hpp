@@ -16,7 +16,7 @@ namespace RecipeServer{
         RecipeServer(std::string address, std::string port);
 
         //a function that handles the http response
-        bool handleResponse(const HTTPServer::HttpRequest &req, std::string &response);
+        virtual bool handleResponse(const HTTPServer::HttpRequest &req, std::string &response);
 
         //a seperate function to ahndle specifically the http get requests
         bool handleGetRequest(const HTTPServer::HttpRequest & req, std::string &response, std::string path);

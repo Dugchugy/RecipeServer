@@ -51,7 +51,7 @@ namespace HTTPServer{
         //closes the server
         bool stop();
         //a function that handles the http response (should be overwritten when creating a child class for your server application)
-        bool handleResponse(const HttpRequest &req, std::string &response);
+        virtual bool handleResponse(const HttpRequest &req, std::string &response);
 
         //a bool to signal whether or not the server should run
         bool continueProcessing;
