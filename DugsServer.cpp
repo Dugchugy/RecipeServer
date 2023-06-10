@@ -88,7 +88,7 @@ namespace RecipeServer{
 
         //if the request type does not fit any of the defined request type options, a 405
         response = "HTTP/1.1 405 request type unknown";
-        return true
+        return true;
 
     }
 
@@ -181,7 +181,7 @@ namespace RecipeServer{
         //generates the response
         response = "HTTP/1.1 200 OK\r\n";
         response = response + "Content-Type: " + ContentType + "\r\n";
-        response = response + "Content-Length: " + FileContents.size() + "\r\n\r\n";
+        response = response + "Content-Length: " + std::to_string(FileContents.size()) + "\r\n\r\n";
         response = response + FileContents;
 
         //returns true
