@@ -12,7 +12,7 @@ HttpServer.o: HttpServer.cpp HttpServer.hpp
 test.o: test.cpp HttpServer.hpp
 	g++ -g -c test.cpp
 
-DugsServer.o: DugsServer.cpp DugsServer.hpp, HttpServer.hpp
+DugsServer.o: DugsServer.cpp DugsServer.hpp HttpServer.hpp
 	g++ -g -c DugsServer.cpp
 
 main.o: main.cpp DugsServer.hpp
