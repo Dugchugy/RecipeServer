@@ -15,9 +15,6 @@ namespace RecipeServer{
         //constructs a new recipe server object with the given IP and port
         RecipeServer(std::string address, std::string port);
 
-        //a destructor that shuts down the server if the program ends before stop is called
-        ~RecipeServer();
-
         //a function that handles the http response
         bool handleResponse(const HTTPServer::HttpRequest &req, std::string &response);
 

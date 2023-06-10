@@ -12,10 +12,7 @@ namespace RecipeServer{
     RecipeServer::RecipeServer(): RecipeServer("127.0.0.1", "12345"){}
 
     //recipes server construct just call the http server constructor with the pass port and IP
-    RecipeServer::RecipeServer(std::string address, std::string port):HttpServer(std::string address, std::string port){}
-
-    //recipe server destructor just call http server destructor
-    RecipeServer::~RecipeServer():~HttpServer(){}
+    RecipeServer::RecipeServer(std::string address, std::string port):HttpServer(address, port){}
 
     //handles generating the http respones from the request
     bool RecipeServer::handleResponse(const HTTPServer::HttpRequest &req, std::string &response){
@@ -67,7 +64,7 @@ namespace RecipeServer{
         //reads through the main header again
         for(int i = 0; i < spaceIndex; i++){
             //adds each character to the request type
-            requestType = requestType + req.mainHeader[i];
+            requestType = requestType + req.MainHeader[i];
         }
 
         //creates a variable to store the request path
@@ -76,7 +73,7 @@ namespace RecipeServer{
         //reads through the main header to read the path
         for(int i = spaceIndex + 1; i < secondSpaceIndex; i++){
             //adds each character read to the path variable
-            path = path + req.mainHeader[i];
+            path = path + req.MainHeader[i];
         }
 
         //checks if the request type is GET
@@ -123,7 +120,7 @@ namespace RecipeServer{
             //changes the path to \WebsiteFiles\<path in site>\index.htm
             path = ".\\WebsiteFiles" + std::regex_replace(path, std::regex("/"), "\\") + "\\index.htm";
             //since the file extention is known, content type is also known
-            ContentType = "text/html"
+            ContentType = "text/html";
         }else{
             //creates a file extention var and sets it to and empty string
             std::string fileExtention = "";
