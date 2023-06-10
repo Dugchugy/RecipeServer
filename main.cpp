@@ -28,6 +28,6 @@ int main(){
     std::cout << "server stopped\n";
 
     recServer.stop();
-    
-    return 0
+
+    return(0);
 }
