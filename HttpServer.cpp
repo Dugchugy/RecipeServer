@@ -165,7 +165,7 @@ namespace HTTPServer
                 delete RespToSend;
                 delete rawRequestData;
 
-                response = NULL;
+                response = "";
                 
                 std::cout << "closing connection\n";
 
