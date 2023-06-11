@@ -35,7 +35,7 @@ namespace HTTPServer
         hints.ai_flags = AI_PASSIVE;
 
         //attempts to generate a valid address from the provided IP and port
-        if(getaddrinfo(address.c_str(), port.c_str(), &hints, &serverAddress) != 0){
+        if(getaddrinfo(NULL, port.c_str(), &hints, &serverAddress) != 0){
             std::cout << "failed to find address\n";
             throw "failed to find address";
         }
