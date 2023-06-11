@@ -36,6 +36,7 @@ namespace HTTPServer
 
         //attempts to generate a valid address from the provided IP and port
         if(getaddrinfo(address.c_str(), port.c_str(), &hints, &serverAddress) != 0){
+            std::cout << "failed to find address\n";
             throw "failed to find address";
         }
 
@@ -44,11 +45,13 @@ namespace HTTPServer
 
         //checks if the socket initiated correctly (if not, throws an error)
         if(sockFD < 0){
+            std::cout << "failed to intialize socket\n";
             throw "failed";
         } 
 
         //attempts to bind the socket to the address found in the ealier step
         if(bind(sockFD, serverAddress->ai_addr, serverAddress->ai_addrlen) < 0){
+            std::cout << "failed to bind socket\n";
             throw "bind failed";
         }
 
