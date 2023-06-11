@@ -124,7 +124,7 @@ namespace RecipeServer{
             }
 
             //changes the path to \WebsiteFiles\<path in site>\index.htm
-            path = ".\\WebsiteFiles" + std::regex_replace(path, std::regex("/"), "\\") + "index.htm";
+            path = "./WebsiteFiles" + std::regex_replace(path, std::regex("/"), "/") + "index.htm";
             //since the file extention is known, content type is also known
             ContentType = "text/html";
         }else{
@@ -148,7 +148,7 @@ namespace RecipeServer{
             }
 
             //changes the path to \WebsiteFiles\<path to resource specifed>
-            path = ".\\WebsiteFiles" + std::regex_replace(path, std::regex("/"), "\\");
+            path = "./WebsiteFiles" + std::regex_replace(path, std::regex("/"), "/");
         }
 
         //creates a varaible to store the contents of a specifed file
