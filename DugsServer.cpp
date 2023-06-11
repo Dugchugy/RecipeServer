@@ -156,6 +156,8 @@ namespace RecipeServer{
 
         //attempts to read the file requested
         try{
+            std::cout << "reading from file " << path;
+
             //creates a file stream to attempt to read the specifed file
             std::ifstream fileStream;
 
