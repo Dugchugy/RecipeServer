@@ -18,6 +18,8 @@ namespace RecipeServer{
     //handles generating the http respones from the request
     bool RecipeServer::handleResponse(const HTTPServer::HttpRequest &req, std::string &response){
 
+        std::cout << "RecipeServer is handling request\n";
+
         //defines a varaible used to store the index of the first stapce in the request
         int spaceIndex = -1;
 
@@ -179,6 +181,8 @@ namespace RecipeServer{
             std::cout << "file not found\n";
             return true;
         }
+
+        std::cout << "returned file requested\n";
 
         //generates the response
         response = "HTTP/1.1 200 OK\r\n";
