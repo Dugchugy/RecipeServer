@@ -5,7 +5,7 @@ A server to store a variety of recipe's for easy access
 
 # Recipe Requests
 
-recipe search request
+recipe search request (POST request)
 {
     "keywords": list[string]
     "tags": list[string]

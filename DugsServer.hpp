@@ -21,6 +21,9 @@ namespace RecipeServer{
         //a seperate function to ahndle specifically the http get requests
         bool handleGetRequest(const HTTPServer::HttpRequest & req, std::string &response, std::string path);
 
+        //a sperate function to handle the post requests made to the server (these are mostly used for manipulating the recipes)
+        bool handlePostRequest(const HTTPServer::HttpRequest & req, std::string &response, std::string path);
+
     }; //end of recipeServer class
 
 }//end of RecipeServer namespace

@@ -87,6 +87,11 @@ namespace RecipeServer{
             return handleGetRequest(req, response, path);
         }
 
+        if(requestType == "POST"){
+            //runs the fun ction to handle the post request and returns its values
+            return handlePostRequest(req, response, path);
+        }
+
 
         //if the request type does not fit any of the defined request type options, a 405
         response = "HTTP/1.1 405 request type unknown";
@@ -206,6 +211,21 @@ namespace RecipeServer{
         return true;
 
     
+    }
+
+    bool RecipeServer::handlePostRequest(const HTTPServer::HttpRequest & req, std::string &response, std::string path){
+
+        //checks if this is a search for a recipe
+        if(path == "/RecipeSearch"){
+
+            
+
+        }
+
+        //if post reuqest doesn't fit any of the specifed paths, return that the format is not supported
+        response = "HTTP/1.1 400 POST request format not supported";
+        return true;
+
     }
 
 } // namepsace RecipeServer
