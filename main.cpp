@@ -4,7 +4,7 @@
 
 int main(){
     //creates an instance of the recipe server object
-    RecipeServer::RecipeServer recServer("127.0.0.1", "8080");
+    RecipeServer::RecipeServer recServer("raspberrypi", "8080");
 
     recServer.start();
 
