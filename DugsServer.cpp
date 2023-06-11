@@ -3,6 +3,7 @@
 #include <regex>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 using namespace HTTPServer;
 
@@ -35,6 +36,7 @@ namespace RecipeServer{
         if(spaceIndex == -1){
             //responds that the request was poorly formatted and was not processed
             response = "HTTP/1.1 400 unnable to read response headers";
+            std::cout << "unnable to find first space\n";
             return true;
         }
 
@@ -55,6 +57,7 @@ namespace RecipeServer{
         if(secondSpaceIndex == -1){
             //response that the request was poorly formatted and was not processed
             response = "HTTP/1.1 400 unnable to read response headers";
+            std::cout << "unnalbe to find second space\n";
             return true;
         }
 
@@ -85,6 +88,7 @@ namespace RecipeServer{
 
         //if the request type does not fit any of the defined request type options, a 405
         response = "HTTP/1.1 405 request type unknown";
+        std::cout << "unknown request type\n";
         return true;
 
     }
@@ -172,6 +176,7 @@ namespace RecipeServer{
             //failed to read file. file likely doesn't exist
             //returns a 404 response to the requester
             response = "HTTP/1.1 404 File not found";
+            std::cout << "file not found\n";
             return true;
         }
 
