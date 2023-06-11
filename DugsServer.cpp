@@ -124,7 +124,7 @@ namespace RecipeServer{
             }
 
             //changes the path to \WebsiteFiles\<path in site>\index.htm
-            path = ".\\WebsiteFiles" + std::regex_replace(path, std::regex("/"), "\\") + "\\index.htm";
+            path = ".\\WebsiteFiles" + std::regex_replace(path, std::regex("/"), "\\") + "index.htm";
             //since the file extention is known, content type is also known
             ContentType = "text/html";
         }else{
@@ -181,6 +181,14 @@ namespace RecipeServer{
         }catch(std::ios_base::failure){
             //failed to read file. file likely doesn't exist
             //returns a 404 response to the requester
+            response = "HTTP/1.1 404 File not found";
+            std::cout << "file not found\n";
+            return true;
+        }
+
+        //checks if nothing was read from the file
+        if(FileContents.size() < 1){
+            //file failed to read, sends 404 response
             response = "HTTP/1.1 404 File not found";
             std::cout << "file not found\n";
             return true;
