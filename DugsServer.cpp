@@ -171,6 +171,8 @@ namespace RecipeServer{
             //copies the stream string into the fileContents string
             FileContents = FSStream.str();
 
+            std::cout << "read " << FileContents.size() << " bytes from file\n";
+
             //closes the file
             fileStream.close();
 
