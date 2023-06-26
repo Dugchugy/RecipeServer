@@ -218,7 +218,7 @@ namespace RecipeServer{
             rapidjson::Document RecievedJson;
 
             //reads the request content as a json
-            RecievedJson.parse(strContent);
+            RecievedJson.Parse(strContent);
 
             rapidjson::Value& kwords = RecievedJson["keywords"];
 
