@@ -4,11 +4,27 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <experimental/filesystem>
+#include <filesystem>
 //adds the needed json functionality
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
+
+//attempts to include filesystem
+#ifndef __has_include
+  static_assert(false, "__has_include not supported");
+#else
+#  if __cplusplus >= 201703L && __has_include(<filesystem>)
+#    include <filesystem>
+     namespace fs = std::filesystem;
+#  elif __has_include(<experimental/filesystem>)
+#    include <experimental/filesystem>
+     namespace fs = std::experimental::filesystem;
+#  elif __has_include(<boost/filesystem.hpp>)
+#    include <boost/filesystem.hpp>
+     namespace fs = boost::filesystem;
+#  endif
+#endif
 
 using namespace HTTPServer;
 
@@ -232,7 +248,7 @@ namespace RecipeServer{
             //marks that the first item to be added to the list should be treated differntly
             bool firstAddition = true;
 
-            for(const auto& recipe : std::filesystem::directory_iterator(RecipePath)){
+            for(const auto& recipe : fs::directory_iterator(RecipePath)){
 
                 //checks if this is the first addition to the json
                 if(firstAddition){
