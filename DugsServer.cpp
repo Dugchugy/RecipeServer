@@ -4,6 +4,11 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <filesystem>
+//adds the needed json functionality
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
 
 using namespace HTTPServer;
 
@@ -161,27 +166,7 @@ namespace RecipeServer{
 
         //attempts to read the file requested
         try{
-            std::cout << "reading from file " << path;
-
-            //creates a file stream to attempt to read the specifed file
-            std::ifstream fileStream;
-
-            //attempts to open the specifed file
-            fileStream.open(path);
-
-            //creates a stream buffer to use
-            std::stringstream FSStream;
-
-            //reads fromt he file into the stream
-            FSStream << fileStream.rdbuf();
-
-            //copies the stream string into the fileContents string
-            FileContents = FSStream.str();
-
-            std::cout << "read " << FileContents.size() << " bytes from file\n";
-
-            //closes the file
-            fileStream.close();
+            FileContents = dumpFile(path);
 
         }catch(std::ios_base::failure){
             //failed to read file. file likely doesn't exist
@@ -215,16 +200,112 @@ namespace RecipeServer{
 
     bool RecipeServer::handlePostRequest(const HTTPServer::HttpRequest & req, std::string &response, std::string path){
 
+        //creates a string to store the content of the request
+        std::string strContent = "";
+
+        //loops through the raw request content
+        for(int i = 0; i < req.memLengths[3]; i++){
+
+            //reads each character of the content
+            strContent = strContent + req.Content[i];
+
+        }
+
         //checks if this is a search for a recipe
         if(path == "/RecipeSearch"){
 
-            
+            //creates an empty json to store the request content in
+            rapidjson::Document RecievedJson;
+
+            //reads the request content as a json
+            RecievedJson.parse(strContent);
+
+            rapidjson::Value& kwords = RecievedJson["keywords"];
+
+            //should filter the results with keywords and only send results, since no new recipies can currently be added, sends all results
+
+            std::string RecipePath = "./Recipes";
+
+            //DEFines the string for the json to be returned
+            std::string ReturnJson = "{\"SearchResults\": [";
+
+            //marks that the first item to be added to the list should be treated differntly
+            bool firstAddition = true;
+
+            for(const auto& recipe : std::filesystem::directory_iterator(RecipePath)){
+
+                //checks if this is the first addition to the json
+                if(firstAddition){
+                    //marks that the first addition has been added
+                    firstAddition = false;
+                }else{
+                    //adds a comma between the pervious entry and this one
+                    ReturnJson += ", ";
+                }
+
+                 //attempts to read the file requested
+                try{
+                    //adds the found file to the json to be returned
+                    ReturnJson += (recipe.path());
+
+                }catch(std::ios_base::failure){
+                    //failed to read file. file likely doesn't exist
+                    //returns a 404 response to the requester
+                    response = "HTTP/1.1 404 File not found";
+                    std::cout << "file not found\n";
+                    return true;
+                } 
+
+            }
+
+            //ends off the json
+            ReturnJson += "]}";
+
+            //sends the json as a response
+            response = "HTTP/1.1 200 OK\r\n";
+            response += "Content-Type: application/json\r\n";
+            response += "Content-Length: " + std::to_string(ReturnJson.size()) + "\r\n\r\n";
+            response += ReturnJson;
+
+            return true;
+
 
         }
 
         //if post reuqest doesn't fit any of the specifed paths, return that the format is not supported
         response = "HTTP/1.1 400 POST request format not supported";
         return true;
+
+    }
+
+    std::string dumpFile(std::string path){
+
+        std::string FileContents = "";
+
+        std::cout << "reading from file " << path;
+
+        //creates a file stream to attempt to read the specifed file
+        std::ifstream fileStream;
+
+        //attempts to open the specifed file
+        fileStream.open(path);
+
+        //creates a stream buffer to use
+        std::stringstream FSStream;
+
+        //reads fromt he file into the stream
+        FSStream << fileStream.rdbuf();
+
+        //copies the stream string into the fileContents string
+        FileContents = FSStream.str();
+
+        std::cout << "read " << FileContents.size() << " bytes from file\n";
+
+        //closes the file
+        fileStream.close();
+
+        //returns the file contents
+        return FileContents;
 
     }
 

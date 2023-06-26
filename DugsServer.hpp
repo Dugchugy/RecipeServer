@@ -26,6 +26,8 @@ namespace RecipeServer{
 
     }; //end of recipeServer class
 
+    std::string dumpFile(std::string path);
+
 }//end of RecipeServer namespace
 
 #endif
