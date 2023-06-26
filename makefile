@@ -4,7 +4,7 @@ test: test.o HttpServer.o
 	g++ -o test test.o HttpServer.o
 
 RecipeServer: main.o HttpServer.o DugsServer.o
-	g++ -o RecipeServer main.o HttpServer.o DugsServer.o
+	g++ -o RecipeServer main.o HttpServer.o DugsServer.o -lstdc++fs
 
 HttpServer.o: HttpServer.cpp HttpServer.hpp
 	g++ -g -c HttpServer.cpp
