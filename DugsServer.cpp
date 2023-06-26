@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <filesystem>
+#include <experimental/filesystem>
 //adds the needed json functionality
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
@@ -218,7 +218,7 @@ namespace RecipeServer{
             rapidjson::Document RecievedJson;
 
             //reads the request content as a json
-            RecievedJson.Parse(strContent);
+            RecievedJson.Parse(strContent.c_str());
 
             rapidjson::Value& kwords = RecievedJson["keywords"];
 
