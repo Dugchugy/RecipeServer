@@ -1,4 +1,4 @@
-const recipeIP = "/Recipes";
+const recipeIP = "/RecipeSearch";
 
 function QueryRecipes(keywords, tags){
 
@@ -68,7 +68,7 @@ function startRecipeQuery(){
     var keywords = []
     var tags = []
 
-    console.log(`Searching for ${keywords} with tags ${tags} at url ${QueryIP}`);
+    console.log(`Searching for ${keywords} with tags ${tags} at url ${recipeIP}`);
 
     QueryJob(keywords, tags);
 }
