@@ -27,7 +27,7 @@
 #endif
 
 //defines the path the server runs out of (temp fix)
-#define RECIPE_PATH "/home/dugchugy/Docuemnts/Github/RecipeServer"
+#define RECIPE_PATH "/home/dugchugy/Documents/GitHub/RecipeServer"
 
 using namespace HTTPServer;
 
