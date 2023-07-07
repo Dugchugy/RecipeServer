@@ -70,5 +70,5 @@ function startRecipeQuery(){
 
     console.log(`Searching for ${keywords} with tags ${tags} at url ${recipeIP}`);
 
-    QueryJob(keywords, tags);
+    QueryRecipes(keywords, tags);
 }
