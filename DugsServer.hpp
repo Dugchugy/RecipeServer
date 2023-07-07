@@ -26,6 +26,8 @@ namespace RecipeServer{
 
     }; //end of recipeServer class
 
+    bool writeFile(std::string path, std::string content);
+
     std::string dumpFile(std::string path);
 
 }//end of RecipeServer namespace

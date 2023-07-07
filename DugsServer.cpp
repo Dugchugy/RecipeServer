@@ -314,7 +314,7 @@ namespace RecipeServer{
 
     }
 
-    std::string writeFile(std::string path, std::string content){
+    bool writeFile(std::string path, std::string content){
 
         std::cout << "writing to the file " << path;
 
@@ -329,6 +329,8 @@ namespace RecipeServer{
 
         //closes the file
         fileStream.close();
+
+        return true;
     }
 
     std::string dumpFile(std::string path){
