@@ -236,7 +236,7 @@ namespace RecipeServer{
             //reads the request content as a json
             RecievedJson.Parse(strContent.c_str());
 
-            rapidjson::Value& kwords = RecievedJson["keywords"];
+            //rapidjson::Value& kwords = RecievedJson["keywords"];
 
             //should filter the results with keywords and only send results, since no new recipies can currently be added, sends all results
 
