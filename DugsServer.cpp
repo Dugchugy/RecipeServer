@@ -306,6 +306,8 @@ namespace RecipeServer{
             //returns OK
             response = "HTTP/1.1 200 OK";
 
+            return true;
+
         }
 
         //if post reuqest doesn't fit any of the specifed paths, return that the format is not supported
