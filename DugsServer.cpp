@@ -291,10 +291,44 @@ namespace RecipeServer{
 
         }
 
+        if(path == "/RecipePost"){
+
+            //creates an empty json to store the request content in
+            rapidjson::Document RecievedJson;
+
+            //reads the request content as a json
+            RecievedJson.Parse(strContent.c_str());
+
+            std::string name = RecievedJson["title"].GetString();
+
+            //writes the file
+            writeFile(RECIPE_PATH + ("/Recipe/" + name), strContent);
+            //returns OK
+            response = "HTTP/1.1 200 OK";
+
+        }
+
         //if post reuqest doesn't fit any of the specifed paths, return that the format is not supported
         response = "HTTP/1.1 400 POST request format not supported";
         return true;
 
+    }
+
+    std::string writeFile(std::string path, std::string content){
+
+        std::cout << "writing to the file " << path;
+
+        //creates a file stream to do the writing
+        std::ofstream fileStream;
+
+        //opens the file and discards any content it may have had
+        fileStream.open(path, std::ofstream::out | std::ofstream::trunc);
+
+        //writes the content
+        fileStream << content;
+
+        //closes the file
+        fileStream.close();
     }
 
     std::string dumpFile(std::string path){

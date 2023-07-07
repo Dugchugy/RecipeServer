@@ -1,10 +1,17 @@
-const recipeIP = "/RecipeSearch";
+const recipeSearchIP = "/RecipeSearch";
+const recipePostIP = "/RecipePost";
+
+/*
+##################################################################
+Functions for keyword/tag recipe Search
+##################################################################
+*/
 
 function QueryRecipes(keywords, tags){
 
     $.ajax({
         type: "POST",
-        url: recipeIP,
+        url: recipeSearchIP,
         data: JSON.stringify({ "keywords": keywords, "tags": tags}),
         contentType: "application/json",
         success: handleRecipeResponse,
@@ -70,7 +77,51 @@ function startRecipeQuery(){
     var keywords = []
     var tags = []
 
-    console.log(`Searching for ${keywords} with tags ${tags} at url ${recipeIP}`);
+    console.log(`Searching for ${keywords} with tags ${tags} at url ${recipeSearchIP}`);
 
     QueryRecipes(keywords, tags);
+}
+
+/*
+##################################################
+Functions for posting a Recipe
+##################################################
+*/
+
+function PostRecipe(title, ingredients, steps){
+
+    $.ajax({
+        type: "POST",
+        url: recipeSearchIP,
+        data: JSON.stringify({ "title": title, "ingredients": ingredients, "instructions": steps}),
+        contentType: "application/json",
+        success: function (content){
+            console.log("recipe Post successful");
+            console.log(`returned ${JSON.stringify(content)}`);
+        },
+        error: function (result, status) {
+            console.log("something went wrong!");
+            console.log(`status was ${status}`);
+            console.log(`results were ${result}`);
+        }
+    });
+
+}
+
+function StartRecipePost(){
+    //defines varaibles
+    var name = "";
+    var Ingreds = [];
+    var Instructs = [];
+
+    //reads the required components from the document
+    var docParts = document.getElementsByClassName("ReadableContent");
+
+    //stores the components
+    name = docParts[0].textContent;
+    Ingreds = [docParts[1].textContent];
+    Instructs = [docParts[2].textContent];
+
+    //sends the request
+    PostRecipe(name, Ingreds, Instructs);
 }
