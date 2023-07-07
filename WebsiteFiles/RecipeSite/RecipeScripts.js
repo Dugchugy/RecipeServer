@@ -92,7 +92,7 @@ function PostRecipe(title, ingredients, steps){
 
     $.ajax({
         type: "POST",
-        url: recipeSearchIP,
+        url: recipePostIP,
         data: JSON.stringify({ "title": title, "ingredients": ingredients, "instructions": steps}),
         contentType: "application/json",
         success: function (content){
