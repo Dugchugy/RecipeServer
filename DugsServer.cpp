@@ -233,6 +233,8 @@ namespace RecipeServer{
         //checks if this is a search for a recipe
         if(path == "/RecipeSearch"){
 
+            std::cout << "\n====================\nSearching for recipes\n====================\n\n";
+
             //creates an empty json to store the request content in
             rapidjson::Document RecievedJson;
 
@@ -251,6 +253,8 @@ namespace RecipeServer{
             //marks that the first item to be added to the list should be treated differntly
             bool firstAddition = true;
 
+            std::cout << "starting loop";
+
             for(const auto& recipe : fs::directory_iterator(RecipePath)){
 
                 //checks if this is the first addition to the json
@@ -265,7 +269,7 @@ namespace RecipeServer{
                  //attempts to read the file requested
                 try{
                     //adds the found file to the json to be returned
-                    ReturnJson += (recipe.path());
+                    ReturnJson += dumpFile(recipe.path());
 
                 }catch(std::ios_base::failure){
                     //failed to read file. file likely doesn't exist
@@ -339,7 +343,7 @@ namespace RecipeServer{
 
         std::string FileContents = "";
 
-        std::cout << "reading from file " << path;
+        std::cout << "reading from file " << path << "\n";
 
         //creates a file stream to attempt to read the specifed file
         std::ifstream fileStream;
