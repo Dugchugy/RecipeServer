@@ -15,10 +15,11 @@ function QueryRecipes(keywords, tags){
         data: JSON.stringify({ "keywords": keywords, "tags": tags}),
         contentType: "application/json",
         success: handleRecipeResponse,
-        error: function (result, status) {
+        error: function (result, status, errThrown) {
             console.log("something went wrong!");
             console.log(`status was ${status}`);
-            console.log(`results were ${result.textContent}`);
+            console.log(`results were ${result.text}`);
+            console.log(`threw: ${errThrown}`);
         }
     });
 
