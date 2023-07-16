@@ -14,6 +14,7 @@ function QueryRecipes(keywords, tags){
         url: recipeSearchIP,
         data: JSON.stringify({ "keywords": keywords, "tags": tags}),
         contentType: "application/json",
+        dataType: "html",
         success: handleRecipeResponse,
         error: function (result, status, errThrown) {
             console.log("something went wrong!");
@@ -26,6 +27,8 @@ function QueryRecipes(keywords, tags){
 }
 
 function handleRecipeResponse(content){
+
+    console.log(`text result ${content}`);
     
     console.log(`json result: ${JSON.stringify(content)}`);
 
