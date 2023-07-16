@@ -248,7 +248,7 @@ namespace RecipeServer{
             std::string RecipePath = std::string(RECIPE_PATH) + "/Recipes";
 
             //DEFines the string for the json to be returned
-            std::string ReturnJson = "{\"SearchResults\": [";
+            std::string ReturnJson = "{\"SearchResults\":[";
 
             //marks that the first item to be added to the list should be treated differntly
             bool firstAddition = true;
@@ -263,7 +263,7 @@ namespace RecipeServer{
                     firstAddition = false;
                 }else{
                     //adds a comma between the pervious entry and this one
-                    ReturnJson += ", ";
+                    ReturnJson += ",";
                 }
 
                  //attempts to read the file requested
@@ -287,7 +287,7 @@ namespace RecipeServer{
             //sends the json as a response
             response = "HTTP/1.1 200 OK\r\n";
             response = response + "Content-Type: application/json\r\n";
-            response = response + "Content-Length: " + std::to_string(ReturnJson.length()) + "\r\n\r\n";
+            response = response + "Content-Length: " + std::to_string(ReturnJson.length() + 2) + "\r\n\r\n";
             response = response + ReturnJson;
 
             std::cout << "raw response: " << response << "\n";
