@@ -290,6 +290,8 @@ namespace RecipeServer{
             response = response + "Content-Length: " + std::to_string(ReturnJson.length()) + "\r\n\r\n";
             response = response + ReturnJson;
 
+            std::cout << "raw response: " << response << "\n";
+
             return true;
 
         }
