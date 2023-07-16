@@ -18,7 +18,7 @@ function QueryRecipes(keywords, tags){
         error: function (result, status) {
             console.log("something went wrong!");
             console.log(`status was ${status}`);
-            console.log(`results were ${result}`);
+            console.log(`results were ${result.textContent}`);
         }
     });
 
