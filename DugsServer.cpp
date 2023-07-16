@@ -302,7 +302,7 @@ namespace RecipeServer{
             std::string name = RecievedJson["title"].GetString();
 
             //writes the file
-            writeFile(RECIPE_PATH + ("/Recipe/" + name), strContent);
+            writeFile(RECIPE_PATH + ("/Recipes/" + name), strContent);
             //returns OK
             response = "HTTP/1.1 200 OK";
 
@@ -318,7 +318,7 @@ namespace RecipeServer{
 
     bool writeFile(std::string path, std::string content){
 
-        std::cout << "writing to the file " << path;
+        std::cout << "writing to the file " << path << "\n";
 
         //creates a file stream to do the writing
         std::ofstream fileStream;
