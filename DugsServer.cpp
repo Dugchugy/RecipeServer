@@ -286,12 +286,11 @@ namespace RecipeServer{
 
             //sends the json as a response
             response = "HTTP/1.1 200 OK\r\n";
-            response += "Content-Type: application/json\r\n";
-            response += "Content-Length: " + std::to_string(ReturnJson.size()) + "\r\n\r\n";
-            response += ReturnJson;
+            response = response + "Content-Type: application/json\r\n";
+            response = response + "Content-Length: " + std::to_string(ReturnJson.size()) + "\r\n\r\n";
+            response = response + ReturnJson;
 
             return true;
-
 
         }
 
