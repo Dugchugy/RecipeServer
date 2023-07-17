@@ -230,6 +230,9 @@ namespace RecipeServer{
 
         }
 
+        //creates a regex to find the null character
+        std::regex Nullfinder('\0');
+
         //checks if this is a search for a recipe
         if(path == "/RecipeSearch"){
 
@@ -284,10 +287,13 @@ namespace RecipeServer{
             //ends off the json
             ReturnJson += "]}";
 
+            //filters any extra null chars out of the ReturnJson
+            std::regex_replace(ReturnJson, Nullfinder, "");
+
             //sends the json as a response
             response = "HTTP/1.1 200 OK\r\n";
             response = response + "Content-Type: application/json\r\n";
-            response = response + "Content-Length: " + std::to_string(ReturnJson.size() - 3) + "\r\n\r\n";
+            response = response + "Content-Length: " + std::to_string(ReturnJson.size() - 1) + "\r\n\r\n";
             response = response + ReturnJson;
 
             std::cout << "raw response: " << response << "\n";
