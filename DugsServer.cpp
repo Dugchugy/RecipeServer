@@ -293,7 +293,7 @@ namespace RecipeServer{
             //sends the json as a response
             response = "HTTP/1.1 200 OK\r\n";
             response = response + "Content-Type: application/json\r\n";
-            response = response + "Content-Length: " + std::to_string(ReturnJson.size() - 2) + "\r\n\r\n";
+            response = response + "Content-Length: " + std::to_string(ReturnJson.size()) + "\r\n\r\n";
             response = response + ReturnJson;
 
             std::cout << "raw response: " << response << "\n";
@@ -373,6 +373,12 @@ namespace RecipeServer{
 
         //closes the file
         fileStream.close();
+
+        //checks if the last character is FileContents is a \0
+        if(FileContents[FileContents.size() - 1] == '\0'){
+            //removes the extra \0
+            FileContents.replace(FileContents.size() - 1, 1, "");
+        }
 
         //returns the file contents
         return FileContents;
