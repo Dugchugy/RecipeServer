@@ -298,6 +298,8 @@ namespace RecipeServer{
 
             std::cout << "raw response: " << response << "\n";
 
+            std::cout << "char 119 of ReturnJson: " << ReturnJson[119];
+
             return true;
 
         }
