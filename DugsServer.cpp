@@ -231,7 +231,7 @@ namespace RecipeServer{
         }
 
         //creates a regex to find the null character
-        std::regex Nullfinder("\0");
+        std::regex Nullfinder("[\0\n\r]");
 
         //checks if this is a search for a recipe
         if(path == "/RecipeSearch"){
@@ -298,7 +298,7 @@ namespace RecipeServer{
 
             std::cout << "raw response: " << response << "\n";
 
-            std::cout << "char 119 of ReturnJson: " << ReturnJson[119];
+            std::cout << "char value of char 119 of ReturnJson: " << int(ReturnJson[119]);
 
             return true;
 
