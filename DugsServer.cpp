@@ -231,7 +231,7 @@ namespace RecipeServer{
         }
 
         //creates a regex to find the null character
-        std::regex Nullfinder("[\0]");
+        std::regex Nullfinder("'\0'");
 
         //checks if this is a search for a recipe
         if(path == "/RecipeSearch"){
