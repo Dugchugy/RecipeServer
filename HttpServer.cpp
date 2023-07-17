@@ -159,6 +159,8 @@ namespace HTTPServer
                 //copies the raw char values of the raw response to the response str
                 memcpy(RespToSend, response.c_str(), response.size() + 1);
 
+                std::cout << "response as cahr array" << RespToSend << "\n";
+
                 std::cout << "sending response\n";
 
                 //sends the response to the requester
