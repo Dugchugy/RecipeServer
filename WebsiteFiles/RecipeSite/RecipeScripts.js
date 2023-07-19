@@ -34,7 +34,7 @@ function handleRecipeResponse(content){
 
     result = content.SearchResults
 
-    console.log(`json array results: ${result}`);
+    console.log(`json array results: ${JSON.stringify(result)}`);
 
     mainDiv = document.getElementsByClassName("RecipeHolder")[0];
 
