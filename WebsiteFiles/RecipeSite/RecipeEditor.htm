@@ -23,10 +23,22 @@
             <p contenteditable="true" class="ReadableContent">placeholder</p>
             &nbsp;
             <p>ingredients: </p>
-            <p contenteditable="true" class="ReadableContent">placeholder</p>
+            <p class="Hidden" id="ingredsList">[]</p>
+            <ul id="visibleIngredients">
+                <li>placeholder</li>
+            </ul>
+
+            <p contenteditable="true" class="ReadableContent">enter text here</p>
+            <div class="Button" onclick="addIngredient();">
+                <p> add </p>
+            </div>
+
             &nbsp;
             <p>instructions: </p>
-            <p contenteditable="true" class="ReadableContent">placeholder</p>
+            <p class="Hidden">[]</p>
+            <ol>
+                <li contenteditable="true" class="ReadableContent">placeholder</li>
+            </ol>
         </div>
     </body>
 

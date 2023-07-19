@@ -47,7 +47,7 @@ function handleRecipeResponse(content){
         var RecipeHTML = `<div class="SiteSection">`;
 
         //adds the recipe title
-        RecipeHTML = RecipeHTML.concat(`<h3>${result[i].name}</h3>`);
+        RecipeHTML = RecipeHTML.concat(`<h3>${result[i].title}</h3>`);
 
         //starts the ingredient list
         RecipeHTML = RecipeHTML.concat(`<ul>`);
@@ -125,9 +125,46 @@ function StartRecipePost(){
 
     //stores the components
     name = docParts[0].textContent;
-    Ingreds = [docParts[1].textContent];
     Instructs = [docParts[2].textContent];
+
+    //reads the ingredients list from the html
+    JSON.parse(document.getElementById("ingredsList").textContent);
 
     //sends the request
     PostRecipe(name, Ingreds, Instructs);
+}
+
+/*
+##################################################
+Functions for manipulating the recipe editor page
+##################################################
+*/
+
+function addIngredient(){
+
+    //reads the ingredient to add
+    var ingredToAdd = document.getElementsByClassName("ReadableContent")[1].textContent;
+
+    //reads the current ingredient list into a json array
+    var ingredList = JSON.parse(document.getElementById("ingredsList").textContent);
+
+    //adds the new ingredient to the list
+    ingredList.push(ingredToAdd);
+
+    //re-writes the ingredients list
+    document.getElementById("ingredsList").textContent = JSON.stringify(ingredList);
+
+    //gets the element for the ingredients list
+    htmlIngredList = document.getElementById("visibleIngredients");
+
+    htmlIngredList.innerHTML = "";
+
+    //loops for all the ingerdients
+    for (var i = 0; i < ingredList.length; i++){
+        //adds them to the inner html
+        htmlIngredList.innerHTML.concat(`<li>${ingredList[i]}</li>`);
+    }
+
+
+
 }
