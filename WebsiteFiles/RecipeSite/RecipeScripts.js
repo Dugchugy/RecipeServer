@@ -128,7 +128,7 @@ function StartRecipePost(){
     Instructs = [docParts[2].textContent];
 
     //reads the ingredients list from the html
-    JSON.parse(document.getElementById("ingredsList").textContent);
+    Ingreds = JSON.parse(document.getElementById("ingredsList").textContent);
 
     //sends the request
     PostRecipe(name, Ingreds, Instructs);
