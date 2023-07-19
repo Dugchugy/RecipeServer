@@ -14,7 +14,7 @@ function QueryRecipes(keywords, tags){
         url: recipeSearchIP,
         data: JSON.stringify({ "keywords": keywords, "tags": tags}),
         contentType: "application/json",
-        dataType: "html",
+        dataType: "json",
         success: handleRecipeResponse,
         error: function (result, status, errThrown) {
             console.log("something went wrong!");
@@ -30,7 +30,7 @@ function handleRecipeResponse(content){
 
     console.log(`text result ${content}`);
     
-    console.log(`json result: ${JSON.parse(content)}`);
+    console.log(`json result: ${JSON.stringify(content)}`);
 
     result = content.SearchResults
 
