@@ -47,14 +47,14 @@ function handleRecipeResponse(content){
         var RecipeHTML = `<div class="SiteSection">`;
 
         //adds the recipe title
-        RecipeHTML = RecipeHTML.concat(`<h3>${result.name}</h3>`);
+        RecipeHTML = RecipeHTML.concat(`<h3>${result[i].name}</h3>`);
 
         //starts the ingredient list
         RecipeHTML = RecipeHTML.concat(`<ul>`);
 
         //loops for each ingredient
-        for (var j = 0; j < result.ingredients.length; j++){
-            RecipeHTML = RecipeHTML.concat(`<li>${result.ingredients[j]}</li>`);
+        for (var j = 0; j < result[i].ingredients.length; j++){
+            RecipeHTML = RecipeHTML.concat(`<li>${result[i].ingredients[j]}</li>`);
         }
 
         //ends the ingredients list
@@ -64,8 +64,8 @@ function handleRecipeResponse(content){
         RecipeHTML = RecipeHTML.concat(`<ol>`);
 
         //loops for each ingredient
-        for (var j = 0; j < result.instructions.length; j++){
-            RecipeHTML = RecipeHTML.concat(`<li>${result.instructions[j]}</li>`);
+        for (var j = 0; j < result[i].instructions.length; j++){
+            RecipeHTML = RecipeHTML.concat(`<li>${result[i].instructions[j]}</li>`);
         }
 
         //ends the instructions list
