@@ -30,7 +30,7 @@ function handleRecipeResponse(content){
 
     console.log(`text result ${content}`);
     
-    console.log(`json result: ${JSON.stringify(content)}`);
+    console.log(`json result: ${JSON.parse(content)}`);
 
     result = content.SearchResults
 
