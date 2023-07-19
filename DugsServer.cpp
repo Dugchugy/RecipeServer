@@ -356,16 +356,7 @@ namespace RecipeServer{
 
         //creates a file stream to attempt to read the specifed file
         std::ifstream fileStream;
-
-        std::cout << "checking if file exitsts";
-
-        if(fileStream.fail()){
-
-            std::cout << "failed tom read file\n";
-
-            return "";
-        }
-
+        
         //attempts to open the specifed file
         fileStream.open(path);
 
@@ -379,6 +370,11 @@ namespace RecipeServer{
         FileContents = FSStream.str();
 
         std::cout << "read " << FileContents.size() << " bytes from file\n";
+
+        if (FileContents.size() == 0){
+            std::cout << "file was empty. exiting";
+            return "";
+        }
 
         //closes the file
         fileStream.close();
