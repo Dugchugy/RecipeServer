@@ -159,14 +159,18 @@ function addIngredient(){
 
     console.log (`initial html ${htmlIngredList.innerHTML}`);
 
-    htmlIngredList.innerHTML = "";
+    //defines an empty string
+    rawOut = "";
 
     //loops for all the ingerdients
     for (var i = 0; i < ingredList.length; i++){
         console.log (`adding ${ingredList[0]} to list`);
         //adds them to the inner html
-        htmlIngredList.innerHTML.concat(`<li>${ingredList[i]}</li>`);
+        rawOut = rawOut.concat(`<li>${ingredList[i]}</li>`);
     }
+
+    //writes the new inner html
+    htmlIngredList.innerHTML = rawOut;
 
     console.log (`final html ${htmlIngredList.innerHTML}`);
 
