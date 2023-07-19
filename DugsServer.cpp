@@ -357,6 +357,13 @@ namespace RecipeServer{
         //creates a file stream to attempt to read the specifed file
         std::ifstream fileStream;
 
+        if(fileStream.fail()){
+
+            std::cout << "failed tom read file\n";
+
+            return "";
+        }
+
         //attempts to open the specifed file
         fileStream.open(path);
 
