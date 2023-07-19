@@ -157,13 +157,18 @@ function addIngredient(){
     //gets the element for the ingredients list
     htmlIngredList = document.getElementById("visibleIngredients");
 
+    console.log (`initial html ${htmlIngredList.innerHTML}`);
+
     htmlIngredList.innerHTML = "";
 
     //loops for all the ingerdients
     for (var i = 0; i < ingredList.length; i++){
+        console.log (`adding ${ingredList[0]} to list`);
         //adds them to the inner html
         htmlIngredList.innerHTML.concat(`<li>${ingredList[i]}</li>`);
     }
+
+    console.log (`final html ${htmlIngredList.innerHTML}`);
 
 
 
