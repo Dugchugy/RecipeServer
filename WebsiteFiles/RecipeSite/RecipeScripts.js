@@ -177,3 +177,18 @@ function addIngredient(){
 
 
 }
+
+//event handler to add item to the instructions list
+function handleKeyPress(event){
+    //only acts on a press of the enter key
+    if(event.key == "Enter"){
+        // Cancel the default action, if needed
+        event.preventDefault();
+
+        //logs the inner html of the selected element
+        console.log(document.activeElement.innerHTML);
+    }
+}
+
+//adds the keypress listener to the Instructions list
+Document.getElementById("InstructionsList").addEventListener("keydown", handleKeyPress); 
