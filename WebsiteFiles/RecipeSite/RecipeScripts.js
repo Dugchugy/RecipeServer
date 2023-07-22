@@ -191,4 +191,4 @@ function handleKeyPress(event){
 }
 
 //adds the keypress listener to the Instructions list
-Document.getElementById("InstructionsList").addEventListener("keydown", handleKeyPress); 
+document.getElementById("InstructionsList").addEventListener("keydown", handleKeyPress); 
