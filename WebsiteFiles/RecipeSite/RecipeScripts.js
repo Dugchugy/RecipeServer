@@ -220,7 +220,7 @@ function handleKeyPress(event){
         console.log(DocEntry.parentElement.children[0].children);
 
         //selects the next item in the list
-        document.activeElement = DocEntry.parentElement.children[0].children[1];
+        DocEntry.parentElement.children[DocEntry.children[1].innerHTML + 1].children[0].focus();
     }
 }
 
