@@ -247,6 +247,9 @@ function handleKeyPress(event){
 
                 //stores the new list
                 document.getElementById("InstructListSoruce").innerHTML = JSON.stringify(InstructList);
+
+                //stops the rest of the function (prevents errors)
+                return;
             }
 
             //changes that element to now have the new value
