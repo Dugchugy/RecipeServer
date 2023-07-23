@@ -191,8 +191,10 @@ function handleKeyPress(event){
         //gets the parent element of the element being edited
         var DocEntry = document.activeElement.parentElement;
 
+        curIndex = Number(DocEntry.children[1].innerHTML)
+
         //checks if this element is bound to an index in the instructions list
-        if(DocEntry.children[1].innerHTML < 0){
+        if(curIndex < 0){
             //if not
 
             //stores the inedx of the new element that will be added tot the list
@@ -209,7 +211,7 @@ function handleKeyPress(event){
             //if so
 
             //changes that element to now have the new value
-            InstructList[DocEntry.children[1].innerHTML] = document.activeElement.innerHTML;
+            InstructList[curIndex] = document.activeElement.innerHTML;
         }
 
         //saves the updated list
@@ -220,7 +222,7 @@ function handleKeyPress(event){
         console.log(DocEntry.parentElement.children[0].children);
 
         //selects the next item in the list
-        DocEntry.parentElement.children[DocEntry.children[1].innerHTML + 1].children[0].focus();
+        DocEntry.parentElement.children[curIndex + 1].children[0].focus();
     }
 }
 
