@@ -200,6 +200,9 @@ function handleKeyPress(event){
             //stores the inedx of the new element that will be added tot the list
             DocEntry.children[1].innerHTML = InstructList.length;
 
+            //also rewrites the curIndex value
+            curIndex = InstructList.length;
+
             //adds a new element to the stored list
             InstructList.push(document.activeElement.innerHTML);
 
