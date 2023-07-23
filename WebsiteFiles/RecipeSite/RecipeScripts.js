@@ -215,12 +215,12 @@ function handleKeyPress(event){
         //saves the updated list
         document.getElementById("InstructListSoruce").innerHTML = JSON.stringify(InstructList);
 
-        console.log(typeof(DocEntry));
+        console.log(DocEntry.children);
 
-        console.log(typeof(DocEntry.parentElement.children[0]));
+        console.log(DocEntry.parentElement.children[0].children);
 
         //selects the next item in the list
-        document.activeElement = DocEntry.parentElement.children[DocEntry.children[1].innerHTML + 1].children[1];
+        document.activeElement = DocEntry.parentElement.children[0].children[1];
     }
 }
 
