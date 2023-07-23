@@ -215,7 +215,7 @@ function handleKeyPress(event){
         //saves the updated list
         document.getElementById("InstructListSoruce").innerHTML = JSON.stringify(InstructList);
 
-        console.log(DocEntry.children);
+        console.log(DocEntry.parentElement.children);
 
         console.log(DocEntry.parentElement.children[0].children);
 
