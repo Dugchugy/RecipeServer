@@ -227,6 +227,10 @@ function handleKeyPress(event){
                 //loops through all the elements from this one to the end of the list
                 for(var i = curIndex; i < InstructList.length - 1; i++){
 
+                    if(i < InstructList.length - 1){
+                        break;
+                    }
+
                     //replaces the current instruction list value with the value of the 
                     InstructList[i] = InstructList[i + 1];
 
