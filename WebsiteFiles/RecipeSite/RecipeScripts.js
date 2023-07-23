@@ -185,8 +185,38 @@ function handleKeyPress(event){
         // Cancel the default action, if needed
         event.preventDefault();
 
-        //logs the inner html of the selected element
-        console.log(document.activeElement.innerHTML);
+        //reads the json list for the instructions and stores it
+        var InstructList = JSON.parse(document.getElementById("InstructListSoruce").innerHTML);
+
+        //gets the parent element of the element being edited
+        var DocEntry = document.activeElement.parentElement;
+
+        //checks if this element is bound to an index in the instructions list
+        if(DocEntry.children[1].innerHTML < 0){
+            //if not
+
+            //stores the inedx of the new element that will be added tot the list
+            DocEntry.children[1].innerHTML = InstructList.length;
+
+            //adds a new element to the stored list
+            InstructList.add(document.activeElement.innerHTML);
+
+            //adds a new element to the html
+            DocEntry.insertAdjacentHTML("afterend", 
+            '<div><li contenteditable="true" class="ReadableContent">Add</li><p class="Hidden">-1</p></div>');
+
+        }else{
+            //if so
+
+            //changes that element to now have the new value
+            InstructList[DocEntry.children[1].innerHTML] = document.activeElement.innerHTML;
+        }
+
+        //saves the updated list
+        document.getElementById("InstructListSoruce").innerHTML = JSON.stringify(InstructList);
+
+        //selects the next item in the list
+        document.activeElement = DocEntry.parentElement.children[DocEntry.children[1].innerHTML + 1].children[1];
     }
 }
 
