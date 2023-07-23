@@ -240,6 +240,9 @@ function handleKeyPress(event){
 
                 //removes the last item from the array
                 InstructList.pop()
+
+                //stores the new list
+                document.getElementById("InstructListSoruce").innerHTML = JSON.stringify(InstructList);
             }
 
             //changes that element to now have the new value
