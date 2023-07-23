@@ -191,11 +191,20 @@ function handleKeyPress(event){
         //gets the parent element of the element being edited
         var DocEntry = document.activeElement.parentElement;
 
-        curIndex = Number(DocEntry.children[1].innerHTML)
+        var curIndex = Number(DocEntry.children[1].innerHTML)
 
         //checks if this element is bound to an index in the instructions list
-        if(curIndex < 0){
+        if(curIndex < 0){}
             //if not
+
+            //checks if no text was added to the entry box
+            if(document.activeElement.innerHTML == "" || document.activeElement.innerHTML == "Add"){
+                //sets the inner text to "Add" in case it's blank
+                document.activeElement.innerHTML = "Add";
+                
+                //since no text was edited, theres nothing to add to the list, returns
+                return
+            }
 
             //stores the inedx of the new element that will be added tot the list
             DocEntry.children[1].innerHTML = InstructList.length;
@@ -212,6 +221,26 @@ function handleKeyPress(event){
 
         }else{
             //if so
+
+            //checks if the text has been deleted
+            if(document.activeElement.innerHTML == ""){
+                //loops through all the elements from this one to the end of the list
+                for(var i = curIndex; i < InstructList.length - 1; i++){
+
+                    //replaces the current instruction list value with the value of the 
+                    InstructList[i] = InstructList[i + 1];
+
+                    //replaces the value in the UI elements
+                    DocEntry.parentElement.children[i].children[0].innerHTML = DocEntry.parentElement.children[i + 1].children[0].innerHTML;
+
+                }
+                
+                //remvoes the last counted item from the html (does not count the Add item)
+                DocEntry.parentElement.children[InstructList.length - 1].remove();
+
+                //removes the last item from the array
+                InstructList.pop()
+            }
 
             //changes that element to now have the new value
             InstructList[curIndex] = document.activeElement.innerHTML;
