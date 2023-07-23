@@ -201,7 +201,7 @@ function handleKeyPress(event){
             console.log(InstructList);
 
             //adds a new element to the stored list
-            InstructList.add(document.activeElement.innerHTML);
+            InstructList.push(document.activeElement.innerHTML);
 
             //adds a new element to the html
             DocEntry.insertAdjacentHTML("afterend", 
