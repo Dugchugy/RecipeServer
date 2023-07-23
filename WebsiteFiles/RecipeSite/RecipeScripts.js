@@ -194,7 +194,7 @@ function handleKeyPress(event){
         var curIndex = Number(DocEntry.children[1].innerHTML)
 
         //checks if this element is bound to an index in the instructions list
-        if(curIndex < 0){}
+        if(curIndex < 0){
             //if not
 
             //checks if no text was added to the entry box
