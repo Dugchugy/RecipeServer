@@ -14,7 +14,7 @@ function QueryRecipes(keywords, tags){
         url: recipeSearchIP,
         data: "SELECT * FROM recipes;",
         contentType: "application/json",
-        dataType: "json",
+        dataType: "text",
         success: handleRecipeResponse,
         error: function (result, status, errThrown) {
             console.log("something went wrong!");
