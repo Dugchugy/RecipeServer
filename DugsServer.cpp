@@ -365,7 +365,7 @@ namespace RecipeServer{
         } else if(PQresultStatus(resp) == PGRES_TUPLES_OK) {
 
             //creates the json to use to return the response
-            std::string jsonResponse = "{\"Results\"=[";
+            std::string jsonResponse = "{\"Results\": [";
 
             //reads how many rows and columns are in the response
             int rows = PQntuples(resp);
