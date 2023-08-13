@@ -43,7 +43,7 @@ namespace RecipeServer{
 
         PGDatabase = PQconnectdb("dbname=recipes host=localhost user=dugchugy password=KJellbotn12!@");
 
-        if (PQstatus(conn) == CONNECTION_BAD) {
+        if (PQstatus(PGDatabase) == CONNECTION_BAD) {
             puts("We were unable to connect to the database");
             exit(0);
         }
@@ -354,7 +354,7 @@ namespace RecipeServer{
     bool RecipeServer::handleSQLRequest(const HTTPServer::HttpRequest & req, std::string &response, const std::string& path, const std::string& Content){
 
         //forwards the requested query to the database
-        PGResult *resp = PQexec(PGDatabase, Content);
+        PGresult *resp = PQexec(PGDatabase, Content.c_str());
 
         //checks if the response returned no dat but the commadn was processed successfully
         if(PQresultStatus(resp) == PGRES_COMMAND_OK){
