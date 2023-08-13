@@ -1,4 +1,4 @@
-const recipeSearchIP = "/RecipeSearch";
+const recipeSearchIP = "/databaseReq";
 const recipePostIP = "/RecipePost";
 
 /*
@@ -12,7 +12,7 @@ function QueryRecipes(keywords, tags){
     $.ajax({
         type: "POST",
         url: recipeSearchIP,
-        data: JSON.stringify({ "keywords": keywords, "tags": tags}),
+        data: "SELECT * FROM recipes;",
         contentType: "application/json",
         dataType: "json",
         success: handleRecipeResponse,
@@ -30,7 +30,7 @@ function handleRecipeResponse(content){
 
     console.log(`text result ${content}`);
     
-    console.log(`json result: ${JSON.stringify(content)}`);
+    /*console.log(`json result: ${JSON.stringify(content)}`);
 
     result = content.SearchResults
 
@@ -74,7 +74,7 @@ function handleRecipeResponse(content){
         //ends the recipe div
         RecipeHTML = RecipeHTML.concat(`</div>`);
         mainDiv.innerHTML = mainDiv.innerHTML.concat(RecipeHTML);
-    }
+    }*/
 
 }
 

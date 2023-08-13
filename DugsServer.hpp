@@ -3,6 +3,8 @@
 
 #include "HttpServer.hpp"
 #include <string>
+//adds the postgre sql library
+#include <postgresql/libpq-fe.h>
 
 namespace RecipeServer{
 
@@ -15,6 +17,9 @@ namespace RecipeServer{
         //constructs a new recipe server object with the given IP and port
         RecipeServer(std::string address, std::string port);
 
+        //destructor
+        ~RecipeServer();
+
         //a function that handles the http response
         virtual bool handleResponse(const HTTPServer::HttpRequest &req, std::string &response);
 
@@ -23,6 +28,11 @@ namespace RecipeServer{
 
         //a sperate function to handle the post requests made to the server (these are mostly used for manipulating the recipes)
         bool handlePostRequest(const HTTPServer::HttpRequest & req, std::string &response, std::string path);
+
+        bool handleSQLRequest(const HTTPServer::HttpRequest & req, std::string &response, const std::string& path, const std::string& Content);
+
+    private:
+        PGconn *PGDatabase;
 
     }; //end of recipeServer class
 

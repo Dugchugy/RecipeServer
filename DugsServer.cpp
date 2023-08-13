@@ -9,6 +9,8 @@
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
+//adds the postgre sql library
+#include <postgresql/libpq-fe.h>
 
 //attempts to include filesystem
 #ifndef __has_include
@@ -37,7 +39,22 @@ namespace RecipeServer{
     RecipeServer::RecipeServer(): RecipeServer("127.0.0.1", "12345"){}
 
     //recipes server construct just call the http server constructor with the pass port and IP
-    RecipeServer::RecipeServer(std::string address, std::string port):HttpServer(address, port){}
+    RecipeServer::RecipeServer(std::string address, std::string port):HttpServer(address, port){
+
+        PGDatabase = PQconnectdb("dbname=recipes host=localhost user=dugchugy password=KJellbotn12!@");
+
+        if (PQstatus(conn) == CONNECTION_BAD) {
+            puts("We were unable to connect to the database");
+            exit(0);
+        }
+    }
+
+    RecipeServer::~RecipeServer(){
+
+        //closes the database connection
+        PQfinish(PGDatabase);
+
+    }
 
     //handles generating the http respones from the request
     bool RecipeServer::handleResponse(const HTTPServer::HttpRequest &req, std::string &response){
@@ -323,8 +340,103 @@ namespace RecipeServer{
 
         }
 
+        if(path == "/databaseReq"){
+
+            return handleSQLRequest(req, response, path, strContent);
+        }
+
         //if post reuqest doesn't fit any of the specifed paths, return that the format is not supported
         response = "HTTP/1.1 400 POST request format not supported";
+        return true;
+
+    }
+
+    bool RecipeServer::handleSQLRequest(const HTTPServer::HttpRequest & req, std::string &response, const std::string& path, const std::string& Content){
+
+        //forwards the requested query to the database
+        PGResult *resp = PQexec(PGDatabase, Content);
+
+        //checks if the response returned no dat but the commadn was processed successfully
+        if(PQresultStatus(resp) == PGRES_COMMAND_OK){
+            //responds that the request was successful but there is no data
+            response = "HTTP/1.1 200 OK";
+        
+        //checks if the command returned data
+        } else if(PQresultStatus(resp) == PGRES_TUPLES_OK) {
+
+            //creates the json to use to return the response
+            std::string jsonResponse = "{\"Results\"=[";
+
+            //reads how many rows and columns are in the response
+            int rows = PQntuples(resp);
+            int cols = PQnfields(resp);
+
+            //creates a set of booleans to store the if the current row/column is the first
+            bool firstRow = true;
+            bool firstCol = true;
+
+            //loops for each row
+            for(int i = 0; i < rows; i++){
+
+                //checks if this is the first row or if the , needs to be added
+                if(firstRow){
+                    jsonResponse += "[";
+                }else{
+                    jsonResponse += ", [";
+                }
+
+                //marks that the next column read will be the first column
+                firstCol = true;
+
+                //loops for each column
+                for(int j = 0; j < cols; j++){
+
+                    //checks if this is not the frist column
+                    if(!firstCol){
+                        //adds the , 
+                        jsonResponse += ", ";
+                    }
+
+                    std::string valueStr = std::string(PQgetvalue(resp, i, j));
+
+                    //checks if the value read is a json array or not
+                    if(valueStr[0] == '['){
+
+                        jsonResponse += valueStr;
+
+                    }else{
+                        //adds the value read from the database to the response
+                        jsonResponse += "\"" + valueStr + "\"";
+                    }
+
+                    //marks that this is no longer the first column
+                    firstCol = false;
+
+                }
+
+                jsonResponse += "]";
+
+                //marks the this is no longer the first row
+                firstRow = false;
+
+            }
+
+            //ends off the response json
+            jsonResponse += "]}";
+
+            //sends the json as a response
+            response = "HTTP/1.1 200 OK\r\n";
+            response = response + "Content-Type: application/json\r\n";
+            response = response + "Content-Length: " + std::to_string(jsonResponse.size()) + "\r\n\r\n";
+            response = response + jsonResponse;
+
+            //comamnmd failed returns server error
+        } else {
+
+            response = "HTTP/1.1 500 DATABASE FAILED TO PROCESS QUERY";
+
+        }
+
         return true;
 
     }
