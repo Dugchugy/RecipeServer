@@ -41,7 +41,7 @@ namespace RecipeServer{
     //recipes server construct just call the http server constructor with the pass port and IP
     RecipeServer::RecipeServer(std::string address, std::string port):HttpServer(address, port){
 
-        PGDatabase = PQconnectdb("dbname=recipes host=localhost user=dugchugy password=KJellbotn12!@");
+        PGDatabase = PQconnectdb("dbname=recipes host=127.0.0.1 user=dugchugy password=KJellbotn12!@");
 
         if (PQstatus(PGDatabase) == CONNECTION_BAD) {
             puts("We were unable to connect to the database");
