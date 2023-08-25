@@ -29,7 +29,7 @@ function handleRecipeResponse(content){
 
     console.log(`text result ${content}`);
 
-    results = content.Results
+    result = content.Results
 
     for (var i = 0; i < result.length; i++){
 
