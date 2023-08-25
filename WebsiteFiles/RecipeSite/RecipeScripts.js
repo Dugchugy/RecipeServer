@@ -13,7 +13,7 @@ function QueryRecipes(keywords, tags){
         url: recipeSearchIP,
         data: "SELECT name, description, ingredients, instructions FROM recipes;",
         contentType: "application/json",
-        dataType: "text",
+        dataType: "json",
         success: handleRecipeResponse,
         error: function (result, status, errThrown) {
             console.log("something went wrong!");
@@ -29,7 +29,7 @@ function handleRecipeResponse(content){
 
     console.log(`text result ${content}`);
 
-    results = JOSN.parse(content).Results
+    results = content.Results
 
     for (var i = 0; i < result.length; i++){
 
