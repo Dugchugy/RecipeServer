@@ -23,6 +23,12 @@ function updateID(){
     }
 }
 
+//updates/posts the current recipe in the editor to the database
+function postRecipeUpdate(){
+    
+    GenerateSQLInsert(ReadEntry(),currentID);
+}
+
 function writeEntry(RecipeEntry){
 
     //writes the entry name

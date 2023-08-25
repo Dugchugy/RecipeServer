@@ -1,5 +1,4 @@
 const recipeSearchIP = "/databaseReq";
-const recipePostIP = "/RecipePost";
 
 /*
 ##################################################################
@@ -12,9 +11,9 @@ function QueryRecipes(keywords, tags){
     $.ajax({
         type: "POST",
         url: recipeSearchIP,
-        data: "SELECT * FROM recipes;",
+        data: "SELECT name, description, ingredients, instructions FROM recipes;",
         contentType: "application/json",
-        dataType: "text",
+        dataType: "json",
         success: handleRecipeResponse,
         error: function (result, status, errThrown) {
             console.log("something went wrong!");
@@ -29,7 +28,53 @@ function QueryRecipes(keywords, tags){
 function handleRecipeResponse(content){
 
     console.log(`text result ${content}`);
-    
+
+    results = content.Results
+
+    for (var i = 0; i < result.length; i++){
+
+        //starts the recipeDiv
+        var RecipeHTML = `<div class="SiteSection">`;
+
+        //adds the recipe title
+        RecipeHTML = RecipeHTML.concat(`<h3>${result[i][0]}</h3>`);
+
+        //adds the recipe description
+        RecipeHTML = RecipeHTML.concat(`<p>${result[i][1]}</p>`);
+
+        //adds the ingredients
+
+        //starts the ingredient list
+        RecipeHTML = RecipeHTML.concat(`<ul>`);
+
+        //loops for each ingredient
+        for (var j = 0; j < result[i].ingredients.length; j++){
+            RecipeHTML = RecipeHTML.concat(`<li>${result[i][2][j]}</li>`);
+        }
+
+        //ends the ingredients list
+        RecipeHTML = RecipeHTML.concat(`</ul>`);
+
+        //starts the instructions list
+
+        //starts the instructions list
+        RecipeHTML = RecipeHTML.concat(`<ol>`);
+
+        //loops for each ingredient
+        for (var j = 0; j < result[i].instructions.length; j++){
+            RecipeHTML = RecipeHTML.concat(`<li>${result[i][3][j]}</li>`);
+        }
+
+        //ends the instructions list
+        RecipeHTML = RecipeHTML.concat(`</ol>`);
+
+        //ends the recipe div
+        RecipeHTML = RecipeHTML.concat(`</div>`);
+        mainDiv.innerHTML = mainDiv.innerHTML.concat(RecipeHTML);
+
+    }
+
+        
     /*console.log(`json result: ${JSON.stringify(content)}`);
 
     result = content.SearchResults

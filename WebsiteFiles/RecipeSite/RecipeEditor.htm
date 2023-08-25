@@ -3,7 +3,7 @@
         <title>Dugs Recipes</title>
         <link rel="stylesheet" href="/syles.css">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="/RecipeSite/RecipeScripts.js"></script>
+        <script src="/RecipeSite/EditerScripts.js"></script>
     </head>
     <body>
         <div class="SiteTitleBar">
@@ -19,30 +19,26 @@
         </div>
 
         <div class="SiteSection">
-            <p>Name:</p>
-            <p contenteditable="true" class="ReadableContent">placeholder</p>
-            &nbsp;
-            <p>ingredients: </p>
-            <p id="ingredsList">[]</p>
-            <ul id="visibleIngredients">
-                <li>placeholder</li>
+            <p>title: </p>
+            <p contenteditable=True id="name">Name</p>
+            <p>Description: </p>
+            <p contenteditable=True id="desc">Description</p>
+            <p>Ingredients:</p>
+            <ul contenteditable=True id="ingreds">
+                <li><br></li>
             </ul>
-
-            <p contenteditable="true" class="ReadableContent">enter text here</p>
-            <div class="Button" onclick="addIngredient();">
-                <p> add </p>
-            </div>
-
-            &nbsp;
-            <p>instructions: </p>
-            <p id="InstructListSoruce">[]</p>
-            <ol id="InstructionsList">
-                <div>
-                    <li contenteditable="true" class="ReadableContent">Add</li>
-                    <p class="Hidden">-1</p>
-                </div>
+            <p>Instructions:</p>
+            <ol contenteditable=True id="instructs">
+                <li><br></li>
             </ol>
+            <div onclick="postRecipeUpdate();">
+                <p>Click Me</p>
+            </div>
         </div>
     </body>
+
+    <script>
+        updateID();
+    </script>
 
 </html>
