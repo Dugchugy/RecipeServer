@@ -14,12 +14,17 @@ function updateID(){
         //overwrites the cookie to so that a new recipe will be generated next time the page opens
         document.cookie = "currecid=-1;path=/";
 
+        console.log(`id: ${currentID})`);
+
         //checks if the read ID wasn't -1
         if(currentID > 0){
             //updates the page with the current recipe
             readDatabase(currentID);
         }
 
+    }else{
+
+        console.log("no ID found");
     }
 }
 
