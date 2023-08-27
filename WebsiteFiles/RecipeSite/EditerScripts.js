@@ -16,7 +16,7 @@ function updateID(){
         //overwrites the cookie to so that a new recipe will be generated next time the page opens
         document.cookie = "currecid=-1;path=/";
 
-        console.log(`id: ${currentID})`);
+        console.log(`id: ${currentID}`);
 
         //checks if the read ID wasn't -1
         if(currentID > 0){
@@ -37,6 +37,7 @@ function postRecipeUpdate(){
 }
 
 function writeEntry(RecipeEntry){
+    console.log("starting to write entry")
 
     //writes the entry name
     document.getElementById("name").innerHTML = RecipeEntry.name;
@@ -175,10 +176,10 @@ function readDatabase(id){
         function(content){
             //interprest the Database results into a recipe entry
             var RecipeEntry = {
-                name: content.results[0][0],
-                description: content.results[0][1],
-                ingredients: content.results[0][2],
-                instructions: content.results[0][3]
+                name: content.Results[0][0],
+                description: content.Results[0][1],
+                ingredients: content.Results[0][2],
+                instructions: content.Results[0][3]
             };
 
             //updates the page to the current recipe entry
