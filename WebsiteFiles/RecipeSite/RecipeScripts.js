@@ -27,7 +27,7 @@ function QueryRecipes(keywords, tags){
 
 function handleRecipeResponse(content){
 
-    result = content.Results
+    var result = content.Results
 
     console.log(JSON.stringify(result))
 
