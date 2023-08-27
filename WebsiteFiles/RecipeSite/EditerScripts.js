@@ -5,6 +5,8 @@ function updateID(){
     //uses regex to search for the current recipe id cookie in the webpage cookies
     foundResults = /currecid=(.*);/.exec(document.cookie)
 
+    console.log(`all cookies: ${document.cookie}`);
+
     //checks if some results were found (if not no updating needs to happen)
     if(foundResults != null){
 

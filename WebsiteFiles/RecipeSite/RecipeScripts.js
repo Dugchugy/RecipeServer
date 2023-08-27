@@ -134,6 +134,8 @@ function handleRecipeResponse(content){
 
 function OpenEditer(id){
     document.cookie = `currecid=${id};path=/`;
+
+    console.log("cookie added");
 }
 
 function startRecipeQuery(){
