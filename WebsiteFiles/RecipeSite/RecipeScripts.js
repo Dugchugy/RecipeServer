@@ -48,7 +48,7 @@ function handleRecipeResponse(content){
         RecipeHTML = RecipeHTML.concat(`<ul>`);
 
         //loops for each ingredient
-        for (var j = 0; j < result[i].ingredients.length; j++){
+        for (var j = 0; j < result[i][2].length; j++){
             RecipeHTML = RecipeHTML.concat(`<li>${result[i][2][j]}</li>`);
         }
 
@@ -61,7 +61,7 @@ function handleRecipeResponse(content){
         RecipeHTML = RecipeHTML.concat(`<ol>`);
 
         //loops for each ingredient
-        for (var j = 0; j < result[i].instructions.length; j++){
+        for (var j = 0; j < result[i][3].length; j++){
             RecipeHTML = RecipeHTML.concat(`<li>${result[i][3][j]}</li>`);
         }
 
