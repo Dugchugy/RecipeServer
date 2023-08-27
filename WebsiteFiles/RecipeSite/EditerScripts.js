@@ -87,14 +87,14 @@ function GenerateSQLInsert(RecipeEntry, id){
         SQLCommand = `INSERT INTO Recipes 
         (name, description, ingredients, instructions)
         VALUES
-        ('${RecipeEntry.name}', '${RecipeEntry.description}', '${JSON.stringify(RecipeEntry.ingredients)}', '${JSON.stringify(RecipeEntry.ingredients)}');`;
+        ('${RecipeEntry.name}', '${RecipeEntry.description}', '${JSON.stringify(RecipeEntry.ingredients)}', '${JSON.stringify(RecipeEntry.instructions)}');`;
 
     }else{
         SQLCommand = `UPDATE Recipes SET 
         Name='${RecipeEntry.name}', 
         description='${RecipeEntry.description}', 
         ingredients='${JSON.stringify(RecipeEntry.ingredients)}', 
-        instructions='${JSON.stringify(RecipeEntry.ingredients)}'
+        instructions='${JSON.stringify(RecipeEntry.instructions)}'
         WHERE
         RecipeID = ${id};`;
 
