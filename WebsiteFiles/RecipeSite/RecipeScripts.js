@@ -11,7 +11,7 @@ function QueryRecipes(keywords, tags){
     $.ajax({
         type: "POST",
         url: recipeSearchIP,
-        data: "SELECT name, description, ingredients, instructions FROM recipes;",
+        data: "SELECT name, description, ingredients, instructions, recipeid FROM recipes;",
         contentType: "application/json",
         dataType: "json",
         success: handleRecipeResponse,
@@ -74,6 +74,9 @@ function handleRecipeResponse(content){
         //ends the instructions list
         RecipeHTML = RecipeHTML.concat(`</ol>`);
 
+        //adds an open editor button
+        RecipeHTML = RecipeHTML.concat(`<a onclick="OpenEditer(${result[i][4]});" href=/RecipeSite/RecipeEditor.htm>Edit Recipe</a>`)
+
         //ends the recipe div
         RecipeHTML = RecipeHTML.concat(`</div>`);
         mainDiv.innerHTML = mainDiv.innerHTML.concat(RecipeHTML);
@@ -129,6 +132,10 @@ function handleRecipeResponse(content){
 
 }
 
+function OpenEditer(id){
+    document.cookie = `currecid=${id};path=/`;
+}
+
 function startRecipeQuery(){
 
     var keywords = []
@@ -145,6 +152,7 @@ Functions for posting a Recipe
 ##################################################
 */
 
+/*
 function PostRecipe(title, ingredients, steps){
 
     $.ajax({
@@ -183,14 +191,14 @@ function StartRecipePost(){
 
     //sends the request
     PostRecipe(name, Ingreds, Instructs);
-}
+}*/
 
 /*
 ##################################################
 Functions for manipulating the recipe editor page
 ##################################################
 */
-
+/*
 function addIngredient(){
 
     //reads the ingredient to add
@@ -322,4 +330,4 @@ function handleKeyPress(event){
 window.onload = function(){
     //adds the keypress listener to the Instructions list
     document.getElementById("InstructionsList").addEventListener("keydown", handleKeyPress); 
-};
+};*/
