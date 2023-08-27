@@ -11,7 +11,7 @@ function updateID(){
     if(foundResults != null){
 
         //reads the value of current id
-        currentID = Number(foundResults.groups[0]);
+        currentID = Number(foundResults[1]);
 
         //overwrites the cookie to so that a new recipe will be generated next time the page opens
         document.cookie = "currecid=-1;path=/";
