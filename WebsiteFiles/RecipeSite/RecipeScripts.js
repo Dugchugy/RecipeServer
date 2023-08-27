@@ -27,6 +27,12 @@ function QueryRecipes(keywords, tags){
 
 function handleRecipeResponse(content){
 
+    //gets the main div
+    mainDiv = document.getElementsByClassName("RecipeHolder")[0];
+
+    //clears the main div
+    mainDiv.innerHTML = '';
+
     var result = content.Results
 
     console.log(JSON.stringify(result))
