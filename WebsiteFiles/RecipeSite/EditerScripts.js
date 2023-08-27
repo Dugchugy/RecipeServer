@@ -3,7 +3,7 @@ var currentID = -1;
 
 function updateID(){
     //uses regex to search for the current recipe id cookie in the webpage cookies
-    foundResults = /currecid=(.*);/.exec(document.cookie)
+    foundResults = /currecid=(\d+);?/.exec(document.cookie)
 
     console.log(`all cookies: ${document.cookie}`);
 
