@@ -89,6 +89,8 @@ function GenerateSQLInsert(RecipeEntry, id){
         VALUES
         ('${RecipeEntry.name}', '${RecipeEntry.description}', '${JSON.stringify(RecipeEntry.ingredients)}', '${JSON.stringify(RecipeEntry.instructions)}');`;
 
+        console.log("adding new recipe")
+
     }else{
         SQLCommand = `UPDATE Recipes SET 
         Name='${RecipeEntry.name}', 
@@ -151,6 +153,8 @@ function ReadEntry(){
 }
 
 function SendQuery(SQL_Query, successHandler){
+
+    console.log(`sending query ${SQL_Query}`)
 
     $.ajax({
         type: "POST",
