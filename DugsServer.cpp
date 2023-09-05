@@ -41,18 +41,20 @@ namespace RecipeServer{
     //recipes server construct just call the http server constructor with the pass port and IP
     RecipeServer::RecipeServer(std::string address, std::string port):HttpServer(address, port){
 
+        /*
         PGDatabase = PQconnectdb("dbname=recipes host=127.0.0.1 user=dugchugy password=KJellbotn12!@");
 
         if (PQstatus(PGDatabase) == CONNECTION_BAD) {
             puts("We were unable to connect to the database");
             exit(0);
         }
+        */
     }
 
     RecipeServer::~RecipeServer(){
 
         //closes the database connection
-        PQfinish(PGDatabase);
+        //PQfinish(PGDatabase);
 
     }
 
@@ -353,6 +355,18 @@ namespace RecipeServer{
 
     bool RecipeServer::handleSQLRequest(const HTTPServer::HttpRequest & req, std::string &response, const std::string& path, const std::string& Content){
 
+        //sets up the database connection
+        PGDatabase = PQconnectdb("dbname=recipes host=127.0.0.1 user=dugchugy password=KJellbotn12!@");
+
+        //checks if the database conenction could be established
+        if (PQstatus(PGDatabase) == CONNECTION_BAD) {
+
+            //returns that the databse connection could not be established
+            response = "HTTP/1.1 500 Failed to connect to database";
+
+            return true;
+        }
+
         //forwards the requested query to the database
         PGresult *resp = PQexec(PGDatabase, Content.c_str());
 
@@ -438,6 +452,9 @@ namespace RecipeServer{
             response = "HTTP/1.1 500 DATABASE FAILED TO PROCESS QUERY";
 
         }
+
+        //closes the database connection
+        PQfinish(PGDatabase);
 
         return true;
 
