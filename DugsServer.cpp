@@ -453,6 +453,13 @@ namespace RecipeServer{
 
         }
 
+        //clears the data accosiated with the response object
+        PQclear(resp);
+
+        //sends the end comamnd
+        resp = PQexec(PGDatabase, "END");
+        PQclear(resp);
+
         //closes the database connection
         PQfinish(PGDatabase);
 
