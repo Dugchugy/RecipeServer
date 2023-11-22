@@ -370,7 +370,7 @@ namespace RecipeServer{
         //forwards the requested query to the database
         PGresult *resp = PQexec(PGDatabase, Content.c_str());
 
-        std::cout << "PG response: " << PQresStatus(PQresultStatus(resp));
+        std::cout << "PG response: " << PQresStatus(PQresultStatus(resp)) << std::endl;
 
         //checks if the response returned no dat but the commadn was processed successfully
         if(PQresultStatus(resp) == PGRES_COMMAND_OK){
