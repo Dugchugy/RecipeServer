@@ -17,3 +17,6 @@ DugsServer.o: DugsServer.cpp DugsServer.hpp HttpServer.hpp
 
 main.o: main.cpp DugsServer.hpp
 	g++ -g -c main.cpp
+
+clean:
+	rm -r -f *.o test RecipeServer
