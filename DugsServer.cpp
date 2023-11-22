@@ -370,10 +370,12 @@ namespace RecipeServer{
             return true;
         }
 
-        std::cout << "executing: " << Content.c_str() << std::endl;
+        std::string command = Content.substr(0, Content.find(';'));
+
+        std::cout << "executing: " << command.c_str() << std::endl;
 
         //forwards the requested query to the database
-        PGresult *resp = PQexec(PGDatabase, Content.c_str());
+        PGresult *resp = PQexec(PGDatabase, command.c_str());
 
         std::cout << "PG response: " << PQresStatus(PQresultStatus(resp)) << std::endl;
 
