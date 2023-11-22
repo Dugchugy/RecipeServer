@@ -359,10 +359,13 @@ namespace RecipeServer{
         PGconn* PGDatabase = PQconnectdb("dbname=recipes host=127.0.0.1 user=dugchugy password=KJellbotn12!@");
 
         //checks if the database conenction could be established
-        if (PQstatus(PGDatabase) == CONNECTION_BAD) {
+        if (PQstatus(PGDatabase) != CONNECTION_OK) {
 
             //returns that the databse connection could not be established
             response = "HTTP/1.1 500 Failed to connect to database";
+
+            //prints out the connection status
+            cout << "PG server response: " << PQresStatus(PQstatus(PGDatabase)) << std::endl;
 
             return true;
         }
