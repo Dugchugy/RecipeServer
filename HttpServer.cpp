@@ -96,7 +96,8 @@ namespace HTTPServer
         HandlerThread.join();
 
         //marks the socket to be reused by operating system
-        setsockopt(sockFD,SOL_SOCKET,SO_REUSEADDR,1,sizeof(int));
+        int a = 1;
+        setsockopt(sockFD,SOL_SOCKET,SO_REUSEADDR,&a,sizeof(int));
 
         running = false;
 
