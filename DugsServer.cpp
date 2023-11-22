@@ -370,6 +370,8 @@ namespace RecipeServer{
             return true;
         }
 
+        std::cout << "executing: " << Content.c_str() << std::endl;
+
         //forwards the requested query to the database
         PGresult *resp = PQexec(PGDatabase, Content.c_str());
 
