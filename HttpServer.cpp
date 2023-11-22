@@ -95,6 +95,9 @@ namespace HTTPServer
         //waits for the current interation of the handling loop to finish
         HandlerThread.join();
 
+        //marks the socket to be reused by operating system
+        setsockopt(sockFD,SOL_SOCKET,SO_REUSEADDR,1,sizeof(int));
+
         running = false;
 
         return true;
