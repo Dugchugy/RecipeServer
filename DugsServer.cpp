@@ -356,7 +356,7 @@ namespace RecipeServer{
     bool RecipeServer::handleSQLRequest(const HTTPServer::HttpRequest & req, std::string &response, const std::string& path, const std::string& Content){
 
         //sets up the database connection
-        PGConn* PGDatabase = PQconnectdb("dbname=recipes host=127.0.0.1 user=dugchugy password=KJellbotn12!@");
+        PGconn* PGDatabase = PQconnectdb("dbname=recipes host=127.0.0.1 user=dugchugy password=KJellbotn12!@");
 
         //checks if the database conenction could be established
         if (PQstatus(PGDatabase) == CONNECTION_BAD) {
