@@ -365,7 +365,7 @@ namespace RecipeServer{
             response = "HTTP/1.1 500 Failed to connect to database";
 
             //prints out the connection status
-            cout << "PG server response: " << PQresStatus(PQstatus(PGDatabase)) << std::endl;
+            std::cout << "PG server response: " << PQstatus(PGDatabase) << std::endl;
 
             return true;
         }
@@ -453,6 +453,9 @@ namespace RecipeServer{
         } else {
 
             response = "HTTP/1.1 500 DATABASE FAILED TO PROCESS QUERY";
+
+            //prints the most recent error block from the connection
+            std::cout << "error response: " << PQerrorMessage(PGDatabase) << std::endl;
 
         }
 
