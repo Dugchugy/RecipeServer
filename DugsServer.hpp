@@ -31,9 +31,6 @@ namespace RecipeServer{
 
         bool handleSQLRequest(const HTTPServer::HttpRequest & req, std::string &response, const std::string& path, const std::string& Content);
 
-    private:
-        PGconn *PGDatabase;
-
     }; //end of recipeServer class
 
     bool writeFile(std::string path, std::string content);
