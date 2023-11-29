@@ -8,7 +8,7 @@ unsigned int TrunkHash(uint64_t input, const int* digits){
     uint64_t midval = 0;
 
     for(int i = 0; i < 16; i++){
-        midval += ((input/(pow(10, digits[i])))%10) * pow(10, i);
+        midval += ((input/(int)(pow(10, digits[i])))%10) * pow(10, i);
     }
 
     unsigned int key = midval % 103;
@@ -27,7 +27,7 @@ float rankOutput(int* results){
 }
 
 uint64_t * readFile(){
-    ifstream myfile("datafile_100_16.txt");
+    std::ifstream myfile("datafile_100_16.txt");
 
     if(myfile.is_open()){
         uint64_t* inputs = new uint64_t[100];
@@ -40,6 +40,10 @@ uint64_t * readFile(){
             i++;
 
         }
+
+        myfile.close();
+
+        return inputs;
     }else{
         return nullptr;
     }
@@ -52,9 +56,9 @@ int main(){
     input = readFile();
 
     //declares 2 arrays for stores the digit combos
-    int bestDigs[] = new int[16];
+    int* bestDigs = new int[16];
 
-    int curDigits[] = new int[16];
+    int* curDigits = new int[16];
 
     float bestAvg = 1;
 
