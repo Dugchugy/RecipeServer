@@ -56,6 +56,11 @@ int main(){
     input = readFile();
     std::cout << "read the file" << std::endl;
 
+    if(input == nullptr){
+        std::cout << "failed to read the file" << std::endl;
+        return -1;
+    }
+
     //declares 2 arrays for stores the digit combos
     int* bestDigs = new int[16];
 
