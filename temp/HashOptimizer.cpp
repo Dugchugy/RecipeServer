@@ -96,6 +96,8 @@ int main(){
                 //ranks the result
                 float avg = rankOutput(results);
 
+                std::cout << "found average: " << avg << std::endl;
+
                 if(avg < bestAvg){
                     //saves the current best values
                     bestAvg = avg;
@@ -117,7 +119,7 @@ int main(){
 
     std::cout << "best Average: " << bestAvg << std::endl;
 
-    std::cout << "using digits";
+    std::cout << "using digits ";
 
     for(int i =0; i <16; i++){
         std::cout<< bestDigs[i] << " ";
