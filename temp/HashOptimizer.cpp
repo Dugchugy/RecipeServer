@@ -27,7 +27,7 @@ float rankOutput(int* results){
 }
 
 uint64_t * readFile(){
-    std::ifstream myfile("datafile_100_16.txt");
+    std::ifstream myfile("dataFile_100_16.txt");
 
     if(myfile.is_open()){
         uint64_t* inputs = new uint64_t[100];
