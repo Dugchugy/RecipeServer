@@ -54,6 +54,7 @@ int main(){
     uint64_t* input;
 
     input = readFile();
+    std::cout << "read the file" << std::endl;
 
     //declares 2 arrays for stores the digit combos
     int* bestDigs = new int[16];
@@ -69,6 +70,8 @@ int main(){
     }
 
     int* results;
+
+    std::cout << "starting loop" << std::endl;
 
     //loops for all combinations of digits
     for(curDigits[0] = 0; curDigits[0] < 17; curDigits[0] ++){
