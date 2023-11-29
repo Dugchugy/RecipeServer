@@ -2,6 +2,7 @@
 #include<fstream>
 #include<math.h>
 #include<string>
+#include<cstdint>
 
 unsigned int TrunkHash(uint64_t input, const int* digits){
     uint64_t midval = 0;
