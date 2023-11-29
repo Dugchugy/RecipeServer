@@ -17,13 +17,13 @@ unsigned int TrunkHash(uint64_t input, const int* digits){
 }
 
 float rankOutput(int* results){
-    uint64_t sum = 0;
+    int sum = 0;
 
     for(int i = 0; i < 103; i++){
         sum += abs(results[i] -1);
     }
 
-    return (float) (sum/103.0f);
+    return (sum/103.0f);
 }
 
 uint64_t * readFile(){
