@@ -86,6 +86,11 @@ int main(){
                 //sets results to an array of 103 0s
                 results = new int[103];
 
+                //sets results to 0
+                for(int i =0; i < 103; i++){
+                    results[i] = 0;
+                }
+
                 for(int i = 0; i < 100; i++){
                     //finds the key for the current input
                     unsigned int key = TrunkHash(input[i], curDigits);
