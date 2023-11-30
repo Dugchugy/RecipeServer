@@ -10,7 +10,7 @@ uint64_t ui64Pow10(int b){
     if(powsOf10 == nullptr){
         powsOf10 = new uint64_t[18];
 
-        uint16_t t = 1;
+        uint64_t t = 1;
 
         for(int i = 0; i < 18; i++){
             powsOf10[i] = t;
