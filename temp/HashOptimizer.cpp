@@ -18,7 +18,7 @@ uint64_t ui64Pow10(int b){
 
             std::cout << "10^" << i << " = " << t << std::endl;
 
-            t = t * ten;
+            t = (uint64_t) t * (uint64_t) ten;
         }
     }
 
