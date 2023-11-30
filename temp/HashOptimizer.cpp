@@ -15,6 +15,8 @@ uint64_t ui64Pow10(int b){
         for(int i = 0; i < 18; i++){
             powsOf10[i] = t;
             t = t * 10;
+
+            std::cout << "10^" << i << " = " << t << std::endl;
         }
     }
 
