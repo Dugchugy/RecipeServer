@@ -86,6 +86,10 @@ uint64_t * readFile(){
 
 int main(){
 
+    int testArr[16] = {1,12,6,20,20,20,20,20,20,20,20,20,20,20,20,20};
+
+    std::cout << "hashTest " << TrunkHash(3675356291270936, testArr) << std::endl;
+
     uint64_t* input;
 
     input = readFile();
@@ -231,7 +235,6 @@ int main(){
     if(powsOf10 != nullptr){
         delete[] powsOf10;
     }
-
 
 
     
