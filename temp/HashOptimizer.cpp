@@ -4,22 +4,28 @@
 #include<string>
 #include<cstdint>
 
-uint64_t ui64Pow(int a, int b){
-    uint64_t result = 1;
+uint64_t* powsOf10 = nullptr;
 
-    //multiplies the result by a, b times
-    for(int i = 0; i < b; i++){
-        result = result * a;
+uint64_t ui64Pow10(int b){
+    if(powsOf10 == nullptr){
+        powsOf10 = new uint64_t[18];
+
+        uint16_t t = 1;
+
+        for(int i = 0; i < 18; i++){
+            powsOf10[i] = t;
+            t = t * 10;
+        }
     }
 
-    return result;
+    return powsOf10[b];
 }
 
 unsigned int TrunkHash(uint64_t input, const int* digits){
     uint64_t midval = 0;
 
     for(int i = 0; i < 16; i++){
-        midval += ((input/ui64Pow(10, digits[i]))%10) * ui64Pow(10, i);
+        midval += ((input/ui64Pow10(digits[i]))%10) * ui64Pow10(i);
     }
 
     unsigned int key = midval % 103;
@@ -28,7 +34,7 @@ unsigned int TrunkHash(uint64_t input, const int* digits){
 }
 
 float rankOutput(int* results){
-    int sum = 0;
+    uint64_t sum = 0;
 
     for(int i = 0; i < 103; i++){
         sum += abs(results[i] -1);
@@ -186,6 +192,10 @@ int main(){
     delete[] bestDigs;
     delete[] curDigits;
     delete[] input;
+
+    if(powsOf10 != nullptr){
+        delete[] powsOf10;
+    }
 
 
 
