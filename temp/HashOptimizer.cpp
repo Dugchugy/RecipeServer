@@ -38,7 +38,7 @@ unsigned int TrunkHash(uint64_t input, const int* digits){
 
     for(int i = 0; i < 16; i++){
         if(digits[i] < 16){
-            midval += ((input/ui64Pow10(digits[i]))%((uint64_t)10) * ui64Pow10(i);
+            midval += ((input/ui64Pow10(digits[i]))%((uint64_t)10)) * ui64Pow10(i);
         }
     }
 
