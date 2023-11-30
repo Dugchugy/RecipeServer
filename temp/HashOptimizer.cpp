@@ -20,6 +20,11 @@ uint64_t ui64Pow10(int b){
             uint64_t newT = 0;
             for(int j = 0; j < 10; j++){
                 newT += t;
+
+                if(newT%10 != 0){
+                    std::cout << newT << std::endl;
+                    throw 1
+                }
             }
             t = newT;
         }
