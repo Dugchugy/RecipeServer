@@ -86,7 +86,7 @@ uint64_t * readFile(){
 
 int main(){
 
-    int testArr[16] = {1,12,6,20,20,20,20,20,20,20,20,20,20,20,20,20};
+    int testArr[16] = {4,15,14,11,20,20,20,20,20,20,20,20,20,20,20,20};
 
     std::cout << "hashTest " << TrunkHash(3675356291270936, testArr) << std::endl;
 
