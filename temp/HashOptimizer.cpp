@@ -21,7 +21,7 @@ uint64_t ui64Pow10(int b){
             for(int j = 0; j < 10; j++){
                 newT += t;
 
-                if(newT%10 != 0){
+                if(newT%10 != 0 && t > 1){
                     std::cout << newT << std::endl;
                     throw 1;
                 }
