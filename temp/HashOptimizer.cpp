@@ -96,7 +96,7 @@ int main(){
                 for(curDigits[3] = 0; curDigits[3] < 17; curDigits[3] ++){
                     for(curDigits[4] = 0; curDigits[4] < 17; curDigits[4] ++){
                         for(curDigits[5] = 0; curDigits[5] < 17; curDigits[5] ++){
-                            for(curDigits[6] = 0; curDigits[6] < 17; curDigits[6] ++){
+                            /*for(curDigits[6] = 0; curDigits[6] < 17; curDigits[6] ++){
                                 for(curDigits[7] = 0; curDigits[7] < 17; curDigits[7] ++){
                                 /*for(curDigits[8] = 0; curDigits[8] < 17; curDigits[8] ++){
                                     for(curDigits[9] = 0; curDigits[9] < 17; curDigits[9] ++){
@@ -138,17 +138,17 @@ int main(){
                                                                 delete[] results;
 
                                                                 results = nullptr;
-                                                            /*}
+                                                           /*}
                                                         }
-                                                    }
+                                                    /*}
                                                 }
                                             }
                                         }
                                     }
-                                }*/
+                                }
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
 
