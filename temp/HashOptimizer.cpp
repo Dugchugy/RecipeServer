@@ -11,6 +11,8 @@ uint64_t ui64Pow(int a, int b){
     for(int i = 0; i < b; i++){
         result = result * a;
     }
+
+    return result;
 }
 
 unsigned int TrunkHash(uint64_t input, const int* digits){
