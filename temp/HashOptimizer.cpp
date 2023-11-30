@@ -91,11 +91,24 @@ int main(){
 
     //loops for all combinations of digits
     for(curDigits[0] = 0; curDigits[0] < 17; curDigits[0] ++){
+
+        std::cout << std::endl << "outerCycle " << curDigits[0] << std::endl;
+        
+        std::cout << "best Average: " << bestAvg << std::endl;
+
+        std::cout << "using digits ";
+
+        for(int i =0; i <16; i++){
+            std::cout<< bestDigs[i] << " ";
+        }
+
+        std::cout << std::endl;
+
         for(curDigits[1] = 0; curDigits[1] < 17; curDigits[1] ++){
             for(curDigits[2] = 0; curDigits[2] < 17; curDigits[2] ++){
                 for(curDigits[3] = 0; curDigits[3] < 17; curDigits[3] ++){
                     for(curDigits[4] = 0; curDigits[4] < 17; curDigits[4] ++){
-                        for(curDigits[5] = 0; curDigits[5] < 17; curDigits[5] ++){
+                        /*for(curDigits[5] = 0; curDigits[5] < 17; curDigits[5] ++){
                             /*for(curDigits[6] = 0; curDigits[6] < 17; curDigits[6] ++){
                                 for(curDigits[7] = 0; curDigits[7] < 17; curDigits[7] ++){
                                 for(curDigits[8] = 0; curDigits[8] < 17; curDigits[8] ++){
@@ -148,7 +161,7 @@ int main(){
                                 }
                                 }
                             }*/
-                        }
+                        //}
                     }
                 }
 
