@@ -23,7 +23,7 @@ uint64_t ui64Pow10(int b){
 
                 if(newT%10 != 0){
                     std::cout << newT << std::endl;
-                    throw 1
+                    throw 1;
                 }
             }
             t = newT;
