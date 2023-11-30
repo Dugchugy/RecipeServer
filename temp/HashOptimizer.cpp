@@ -33,14 +33,14 @@ unsigned int TrunkHash(uint64_t input, const int* digits){
     return key;
 }
 
-float rankOutput(int* results){
+int rankOutput(int* results){
     uint64_t sum = 0;
 
     for(int i = 0; i < 103; i++){
         sum += abs(results[i] -1);
     }
 
-    return (sum/103.0f);
+    return sum;
 }
 
 uint64_t * readFile(){
@@ -83,7 +83,7 @@ int main(){
 
     int* curDigits = new int[16];
 
-    float bestAvg = 1;
+    int bestSum = 1000;
 
     //sets the ints to 20 (reads as ignored value in hash function)
     for(int i = 0; i < 16; i++){
@@ -100,7 +100,7 @@ int main(){
 
         std::cout << std::endl << "outerCycle " << curDigits[0] << std::endl;
         
-        std::cout << "best Average: " << bestAvg << std::endl;
+        std::cout << "best Sum: " << bestSum << std::endl;
 
         std::cout << "using digits ";
 
@@ -142,13 +142,13 @@ int main(){
                                                                 }
 
                                                                 //ranks the result
-                                                                float avg = rankOutput(results);
+                                                                int sum = rankOutput(results);
 
                                                                 //std::cout << "found average: " << avg << std::endl;
 
-                                                                if(avg < bestAvg){
+                                                                if(sum < bestSum){
                                                                     //saves the current best values
-                                                                    bestAvg = avg;
+                                                                    bestSum = sum;
                                                                     for(int i = 0; i < 16; i++){
                                                                         bestDigs[i] = curDigits[i];
                                                                     }
@@ -178,7 +178,7 @@ int main(){
 
     }
 
-    std::cout << "best Average: " << bestAvg << std::endl;
+    std::cout << "best Sum: " << bestSum << std::endl;
 
     std::cout << "using digits ";
 
