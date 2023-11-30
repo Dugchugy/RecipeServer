@@ -4,11 +4,20 @@
 #include<string>
 #include<cstdint>
 
+uint64_t ui64Pow(int a, int b){
+    uint64_t result = 1;
+
+    //multiplies the result by a, b times
+    for(int i = 0; i < b; i++){
+        result = result * a;
+    }
+}
+
 unsigned int TrunkHash(uint64_t input, const int* digits){
     uint64_t midval = 0;
 
     for(int i = 0; i < 16; i++){
-        midval += ((input/(int)(pow(10, digits[i])))%10) * pow(10, i);
+        midval += ((input/ui64Pow(10, digits[i]))%10) * ui64Pow(10, i);
     }
 
     unsigned int key = midval % 103;
@@ -70,8 +79,8 @@ int main(){
 
     //sets the ints to 20 (reads as ignored value in hash function)
     for(int i = 0; i < 16; i++){
-        bestDigs[i] = 20;
-        curDigits[i] = 20;
+        bestDigs[i] = 17;
+        curDigits[i] = 17;
     }
 
     int* results;
@@ -101,7 +110,7 @@ int main(){
                 //ranks the result
                 float avg = rankOutput(results);
 
-                std::cout << "found average: " << avg << std::endl;
+                //std::cout << "found average: " << avg << std::endl;
 
                 if(avg < bestAvg){
                     //saves the current best values
