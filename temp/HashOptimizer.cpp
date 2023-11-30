@@ -94,6 +94,8 @@ int main(){
         return -1;
     }
 
+    int* bestResult = new int[103];
+
     //declares 2 arrays for stores the digit combos
     int* bestDigs = new int[16];
 
@@ -168,6 +170,10 @@ int main(){
                                                                     for(int i = 0; i < 16; i++){
                                                                         bestDigs[i] = curDigits[i];
                                                                     }
+
+                                                                    for(int i = 0; i < 103; i++){
+                                                                        bestResult[i] = results[i];
+                                                                    }
                                                                 }
 
                                                                 delete[] results;
@@ -192,6 +198,17 @@ int main(){
             }
         }
 
+    }
+
+    std::cout << std::endl;
+
+    for(int i =0; i < 103; i++){
+        std::cout << "[" << i << "]: ";
+
+        for(int j = 0; j < bestResult[i]; j++){
+            std::cout << "*";
+        }
+        std::cout << std::endl;
     }
 
     std::cout << "best Sum: " << bestSum << std::endl;
