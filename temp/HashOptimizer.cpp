@@ -46,10 +46,14 @@ unsigned int TrunkHash(uint64_t input, const int* digits){
 }
 
 int rankOutput(int* results){
-    uint64_t sum = 0;
+    int sum = 0;
 
     for(int i = 0; i < 103; i++){
-        sum += abs(results[i] -1);
+        if(results[i] == 0){
+            sum += 1;
+        }else{
+            sum += (results[i] -1);
+        }
     }
 
     return sum;
