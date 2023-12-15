@@ -82,7 +82,6 @@ function handleRecipeResponse(content){
         mainDiv.innerHTML = mainDiv.innerHTML.concat(RecipeHTML);
 
     }
-
         
     /*console.log(`json result: ${JSON.stringify(content)}`);
 
